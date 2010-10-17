@@ -1,5 +1,4 @@
 <root>
-<section name="Core Examples">
 <example>
 <name>
 	Instantiation
@@ -73,8 +72,6 @@
 ?&gt;]]>
 </code>
 </example>
-</section>
-<section name="Read Examples">
 <example>
 <name>
 	Find Query
@@ -206,8 +203,6 @@
 ?&gt;]]>
 </code>
 </example>
-</section>
-<section name="Write Examples">
 <example>
 <name>
 	Create - Video
@@ -381,8 +376,6 @@
 ?&gt;]]>
 </code>
 </example>
-</section>
-<section name="Convenience Examples">
 <example>
 <name>
 	SEF URLs / Time Formatting
@@ -472,5 +465,4 @@
 ?&gt;]]>
 </code>
 </example>
-</section>
 </root>
