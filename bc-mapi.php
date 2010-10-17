@@ -6,8 +6,8 @@
  * (Formerly known as Echove)
  *
  * REFERENCES:
- *	 Official Website: http://opensource.brightcove.com
- *	 Code Repository: http://code.google.com/p/brightcove/
+ *	 Website: http://opensource.brightcove.com
+ *	 Source: http://github.com/brightcoveosi/
  *
  * AUTHORS:
  *	 Matthew Congrove, Professional Services Engineer, Brightcove
