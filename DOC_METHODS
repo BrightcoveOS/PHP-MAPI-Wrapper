@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+	<section name="Core Methods">
+		<method>
+			<name>
+				__construct
+			</name>
+			<summary>
+				<![CDATA[
+					<p>The constructor for the Echove class.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>token_read</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The read API token for the Brightcove account</description>
+				</item>
+				<item>
+					<name>token_write</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The write API token for the Brightcove account </description>
+				</item>
+			</arguments>
+			<properties>
+				<item>
+					<name>page_number</name>
+					<access>Public</access>
+					<type>Integer</type>
+					<description>The value of the last 'page_number' return</description>
+				</item>
+				<item>
+					<name>page_size</name>
+					<access>Public</access>
+					<type>Integer</type>
+					<description>The value of the last 'page_size' return</description>
+				</item>
+				<item>
+					<name>total_count</name>
+					<access>Public</access>
+					<type>Integer</type>
+					<description>The value of the last 'total_count' return</description>
+				</item>
+				<item>
+					<name>api_calls</name>
+					<access>Private</access>
+					<type>Integer</type>
+					<description>The total number of API calls that have been processed</description>
+				</item>
+				<item>
+					<name>bit32</name>
+					<access>Private</access>
+					<type>Boolean</type>
+					<description>Whether Echove is operating in 32-bit compatibility mode</description>
+				</item>
+				<item>
+					<name>media_delivery</name>
+					<access>Private</access>
+					<type>String</type>
+					<description>What type of URL to return for UDS assets</description>
+				</item>
+				<item>
+					<name>secure</name>
+					<access>Private</access>
+					<type>Boolean</type>
+					<description>Whether Echove is operating over HTTPS</description>
+				</item>
+				<item>
+					<name>show_notices</name>
+					<access>Private</access>
+					<type>Boolean</type>
+					<description>Whether Echove will send error notices</description>
+				</item>
+				<item>
+					<name>timeout_attempts</name>
+					<access>Private</access>
+					<type>Integer</type>
+					<description>The number of times to retry a call in case of API timeout</description>
+				</item>
+				<item>
+					<name>timeout_current</name>
+					<access>Private</access>
+					<type>Integer</type>
+					<description>The current API timeout retry attempt</description>
+				</item>
+				<item>
+					<name>timeout_delay</name>
+					<access>Private</access>
+					<type>Integer</type>
+					<description>Number of seconds to delay retry attempts</description>
+				</item>
+				<item>
+					<name>timeout_retry</name>
+					<access>Private</access>
+					<type>Boolean</type>
+					<description>Whether to automatically retry calls that fail due to API timeout</description>
+				</item>
+				<item>
+					<name>token_read</name>
+					<access>Private</access>
+					<type>String</type>
+					<description>The read Brightcove token to use</description>
+				</item>
+				<item>
+					<name>token_write</name>
+					<access>Private</access>
+					<type>String</type>
+					<description>The write Brightcove token to use</description>
+				</item>
+				<item>
+					<name>url_read</name>
+					<access>Private</access>
+					<type>String</type>
+					<description>The Brightcove Read API URL</description>
+				</item>
+				<item>
+					<name>url_write</name>
+					<access>Private</access>
+					<type>String</type>
+					<description>The Brightcove Write API URL</description>
+				</item>
+				<item>
+					<name>valid_types</name>
+					<access>Private</access>
+					<type>Array</type>
+					<description>An array of valid object / media asset types</description>
+				</item>
+			</properties>
+		</method>
+		<method>
+			<name>
+				__set
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Sets a property of the Echove class.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>key</name>
+					<type>String</type>
+					<description>The property to set</description>
+				</item>
+				<item>
+					<name>value</name>
+					<type>Mixed</type>
+					<description>The new value for the property</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The new value of the property</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				__get
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Retrieves a property of the Echove class.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>key</name>
+					<type>String</type>
+					<description>The property to retrieve</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The value of the property</description>
+				</item>
+			</return>
+		</method>
+	</section>
+	<section name="Read Methods">
+		<method>
+			<name>
+				find
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Formats the request for any API "Find" methods and retrieves the data.</p>
+					<p>The requested call may be written in a shortened version (e.g. "allVideos" or "all_videos" instead of "find_all_videos").</p>
+					<p>If the call supports get_item_count, it is defaulted to TRUE.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>call</name>
+					<type>String</type>
+					<description>The requested API method</description>
+				</item>
+				<item>
+					<name>params</name>
+					<default>NULL</default>
+					<type>Mixed</type>
+					<description>A key-value array of API parameters, or a single value that matches the default</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Object</type>
+					<description>An object containing all API return data</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				findAll
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Finds all media assets in account, ignoring pagination.</p>
+					<p>This method should be used with extreme care as accounts with a large library of assets will require a high number of API calls. This could significantly affect performance and may result in additional charges from Brightcove.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to retrieve</description>
+				</item>
+				<item>
+					<name>params</name>
+					<default>NULL</default>
+					<type>Array</type>
+					<description>A key-value array of API parameters</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Object</type>
+					<description>An object containing all API return data</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				search
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Performs a search of video meta data</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of objects to retrieve</description>
+				</item>
+				<item>
+					<name>terms</name>
+					<default>NULL</default>
+					<type>Array</type>
+					<description>The terms to use for the search</description>
+				</item>
+				<item>
+					<name>params</name>
+					<default>NULL</default>
+					<type>Mixed</type>
+					<description>A key-value array of API parameters</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Object</type>
+					<description>An object containing all API return data</description>
+				</item>
+			</return>
+		</method>
+	</section>
+	<section name="Write Methods">
+		<method>
+			<name>
+				createMedia
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Uploads a media asset file to Brightcove.</p>
+					<p>When creating an asset from an upload it is suggested that you first move the file out of the temporary directory where PHP placed it and rename the file to it's original name.</p>
+					<p>An asset name and short description are both required; leaving these values blank will cause them to be populated with the current UNIX timestamp.</p>
+					<p>Certain upload settings are not allowed depending upon what default have already been set, and depending on the type of file being uploaded. Setting the incorrect values for these parameters will trigger a notice.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to upload</description>
+				</item>
+				<item>
+					<name>file</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The location of the temporary file</description>
+				</item>
+				<item>
+					<name>meta</name>
+					<type>Array</type>
+					<description>The media asset information</description>
+				</item>
+				<item>
+					<name>options</name>
+					<default>NULL</default>
+					<type>Array</type>
+					<description>Optional upload values</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Integer</type>
+					<description>The media asset ID</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				createPlaylist
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Creates a playlist.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of playlist to create</description>
+				</item>
+				<item>
+					<name>meta</name>
+					<type>Array</type>
+					<description>The playlist information</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The playlist ID</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				update
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Updates a media asset.</p>
+					<p>Only the meta data that has changed needs to be passed along. Be sure to include the asset ID, though.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to update</description>
+				</item>
+				<item>
+					<name>meta</name>
+					<type>Array</type>
+					<description>The information for the media asset </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>DTO</type>
+					<description>The new DTO </description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				createImage
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Uploads a media image file to Brightcove.</p>
+					<p>When creating an image it is suggested that you first move the file out of the temporary directory where PHP placed it and rename the file to it's original name.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to upload image for</description>
+				</item>
+				<item>
+					<name>file</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The location of the temporary file</description>
+				</item>
+				<item>
+					<name>meta</name>
+					<type>Array</type>
+					<description>The image information</description>
+				</item>
+				<item>
+					<name>id</name>
+					<default>NULL</default>
+					<type>Integer</type>
+					<description>The ID of the media asset to assign the image to</description>
+				</item>
+				<item>
+					<name>ref_id</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The reference ID of the media asset to assign the image to</description>
+				</item>
+				<item>
+					<name>resize</name>
+					<default>TRUE</default>
+					<type>Boolean</type>
+					<description>Whether or not to resize the image on upload</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The image asset</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				createOverlay
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Uploads a logo overlay file to Brightcove.</p>
+					<p>When creating a logo overlay it is suggested that you first move the file out of the temporary directory where PHP placed it and rename the file to it's original name.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>file</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The location of the temporary file</description>
+				</item>
+				<item>
+					<name>meta</name>
+					<type>Array</type>
+					<description>The logo overlay information</description>
+				</item>
+				<item>
+					<name>id</name>
+					<default>NULL</default>
+					<type>Integer</type>
+					<description>The ID of the media asset to assign the logo overlay to</description>
+				</item>
+				<item>
+					<name>ref_id</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The reference ID of the media asset to assign the logo overlay to</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The logo overlay asset</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				deleteOverlay
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Deletes a logo overlay.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>id</name>
+					<default>NULL</default>
+					<type>Integer</type>
+					<description>The ID of the media asset</description>
+				</item>
+				<item>
+					<name>ref_id</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The reference ID of the media asset</description>
+				</item>
+				<item>
+					<name>options</name>
+					<default>NULL</default>
+					<type>Array</type>
+					<description>Optional values</description>
+				</item>
+			</arguments>
+		</method>
+		<method>
+			<name>
+				delete
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Deletes a media asset.</p>
+					<p>Either an ID or Reference ID must be passed. </p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of item to delete</description>
+				</item>
+				<item>
+					<name>id</name>
+					<default>NULL</default>
+					<type>Integer</type>
+					<description>The ID of the media asset</description>
+				</item>
+				<item>
+					<name>ref_id</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The reference ID of the media asset</description>
+				</item>
+				<item>
+					<name>options</name>
+					<default>NULL</default>
+					<type>Array</type>
+					<description>Optional values </description>
+				</item>
+			</arguments>
+		</method>
+		<method>
+			<name>
+				getStatus
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Retrieves the status of a media asset upload.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to check</description>
+				</item>
+				<item>
+					<name>id</name>
+					<default>NULL</default>
+					<type>String</type>
+					<description>The ID of the media asset</description>
+				</item>
+				<item>
+					<name>ref_id</name>
+					<default>TRUE</default>
+					<type>String</type>
+					<description>The reference ID of the media asset </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>String</type>
+					<description>The upload status</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				shareMedia
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Shares a media asset with the selected accounts.</p>
+					<p>Sharing must be enabled between the two accounts.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>type</name>
+					<default>video</default>
+					<type>String</type>
+					<description>The type of object to share</description>
+				</item>
+				<item>
+					<name>id</name>
+					<type>Integer</type>
+					<description>The ID of the media asset</description>
+				</item>
+				<item>
+					<name>account_ids</name>
+					<type>Array</type>
+					<description>An array of account IDs</description>
+				</item>
+				<item>
+					<name>accept</name>
+					<default>FALSE</default>
+					<type>Boolean</type>
+					<description>Whether the share should be auto accepted</description>
+				</item>
+				<item>
+					<name>force</name>
+					<default>FALSE</default>
+					<type>Boolean</type>
+					<description>Whether the share should overwrite existing copies of the media</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Array</type>
+					<description>The new media asset IDs </description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				removeFromPlaylist
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Removes assets from a playlist.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>playlist_id</name>
+					<type>Integer</type>
+					<description>The ID of the playlist to modify</description>
+				</item>
+				<item>
+					<name>video_ids</name>
+					<type>Array</type>
+					<description>An array of video IDs to delete from the playlist </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Array</type>
+					<description>The new playlist DTO</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				addToPlaylist
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Adds assets to a playlist.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>playlist_id</name>
+					<type>Integer</type>
+					<description>The ID of the playlist to modify</description>
+				</item>
+				<item>
+					<name>video_ids</name>
+					<type>Array</type>
+					<description>An array of video IDs to add to the playlist </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Array</type>
+					<description>The new playlist DTO</description>
+				</item>
+			</return>
+		</method>
+	</section>
+	<section name="Convenience Methods">
+		<method>
+			<name>
+				time
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Converts milliseconds to formatted time or seconds.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>ms</name>
+					<default></default>
+					<type>Integer</type>
+					<description>The length of the media asset in milliseconds</description>
+				</item>
+				<item>
+					<name>seconds</name>
+					<default>FALSE</default>
+					<type>Boolean</type>
+					<description>Whether to return only seconds </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>The formatted length or total seconds of the media asset </description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				tags
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Parses media asset tags array into a key-value array.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>tags</name>
+					<default></default>
+					<type>Array</type>
+					<description>The tags array from a media asset DTO</description>
+				</item>
+				<item>
+					<name>implode</name>
+					<default>FALSE</default>
+					<type>Boolean</type>
+					<description>Return array to Brightcove format </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Mixed</type>
+					<description>A key-value array of tags, or a comma-separated string</description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				filter
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Removes assets that don't contain the appropriate tags.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>videos</name>
+					<default></default>
+					<type>Array</type>
+					<description>All the assets you wish to filter</description>
+				</item>
+				<item>
+					<name>tag</name>
+					<default></default>
+					<type>String</type>
+					<description>A comma-separated list of tags to filter on </description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>Array</type>
+					<description>The filtered list of assets </description>
+				</item>
+			</return>
+		</method>
+		<method>
+			<name>
+				sef
+			</name>
+			<summary>
+				<![CDATA[
+					<p>Formats a media asset name to be search-engine friendly.</p>
+				]]>
+			</summary>
+			<arguments>
+				<item>
+					<name>name</name>
+					<default></default>
+					<type>String</type>
+					<description>The asset name</description>
+				</item>
+			</arguments>
+			<return>
+				<item>
+					<type>String</type>
+					<description>The search-engine friendly asset name</description>
+				</item>
+			</return>
+		</method>
+	</section>
+</root>
