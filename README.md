@@ -5,15 +5,15 @@ This project provides a starting point for integrating the Brightcove Media API 
 
 Download
 --------
-You can download the latest package at the [GitHub][http://github.com/brightcoveosi/PHP-MAPI-Wrapper] page.
+You can download the latest package at the [GitHub](http://github.com/brightcoveosi/PHP-MAPI-Wrapper) page.
 
 Latest Source
 -------------
-You can check out the latest source code at the [GitHub][http://github.com/brightcoveosi/PHP-MAPI-Wrapper] page; please note that there is no guarantee of code usability or stability.
+You can check out the latest source code at the [GitHub](http://github.com/brightcoveosi/PHP-MAPI-Wrapper) page; please note that there is no guarantee of code usability or stability.
 
 Requirements
 ------------
-You must have PHP version 5.2 or greater, or you must have the JavaScript Object Notation (JSON) PECL package. For more information on the JSON PECL package, please visit the [PHP JSON][http://www.php.net/json] package website.
+You must have PHP version 5.2 or greater, or you must have the JavaScript Object Notation (JSON) PECL package. For more information on the JSON PECL package, please visit the [PHP JSON](http://www.php.net/json) package website.
 
 Support
 -------
