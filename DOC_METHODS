@@ -316,7 +316,7 @@
 		</arguments>
 		<return>
 			<item>
-				<type>Integer</type>
+				<type>String</type>
 				<description>The media asset ID</description>
 			</item>
 		</return>
@@ -345,7 +345,7 @@
 		</arguments>
 		<return>
 			<item>
-				<type>Mixed</type>
+				<type>String</type>
 				<description>The playlist ID</description>
 			</item>
 		</return>

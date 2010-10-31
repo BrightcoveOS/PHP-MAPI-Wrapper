@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BC PHP MAPI WRAPPER 2.0.0 (12 OCTOBER 2010)
+ * BC PHP MAPI WRAPPER 2.0.0 (31 OCTOBER 2010)
  * A Brightcove PHP Media API wrapper
  * (Formerly known as Echove)
  *
@@ -397,7 +397,7 @@ class BCMAPI
 	 * @param string [$file] The location of the temporary file
 	 * @param array [$meta] The media asset information
 	 * @param array [$options] Optional upload values
-	 * @return mixed The media asset ID
+	 * @return string The media asset ID
 	 */
 	public function createMedia($type = 'video', $file = NULL, $meta, $options = NULL)
 	{
@@ -479,7 +479,7 @@ class BCMAPI
 			$request['file'] = '@' . $file;
 		}
 
-		return $this->putData($request)->result;
+		return (string)$this->putData($request)->result;
 	}
 
 	/**
@@ -488,7 +488,7 @@ class BCMAPI
 	 * @since 0.3.0
 	 * @param string [$type] The type of playlist to create
 	 * @param array [$meta] The playlist information
-	 * @return mixed The playlist ID
+	 * @return string The playlist ID
 	 */
 	public function createPlaylist($type = 'video', $meta)
 	{
@@ -524,7 +524,7 @@ class BCMAPI
 
 		$request['json'] = json_encode($post);
 
-		return $this->putData($request)->result;
+		return (string)$this->putData($request)->result;
 	}
 
 	/**
