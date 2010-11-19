@@ -1,6 +1,6 @@
-<h1>
+<h2>
 	About
-</h1>
+</h2>
 
 <p>
 	This project provides a starting point for integrating the Brightcove Media API into your application. It provides simple ways to interact with the API, as well as a long list of helper functions.
