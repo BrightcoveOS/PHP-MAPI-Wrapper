@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BC PHP MAPI WRAPPER 2.0.0 (31 OCTOBER 2010)
+ * BC PHP MAPI WRAPPER 2.0.0 (30 NOVEMBER 2010)
  * A Brightcove PHP Media API wrapper
  * (Formerly known as Echove)
  *
