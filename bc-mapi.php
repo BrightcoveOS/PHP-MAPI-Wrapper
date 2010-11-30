@@ -179,24 +179,9 @@ class BCMAPI
 				$default = 'reference_ids';
 				$get_item_count = FALSE;
 				break;
-			case 'relatedvideos':
-				$method = 'find_related_videos';
-				$default = 'video_id';
-				$get_item_count = TRUE;
-				break;
-			case 'videosbyuserid':
-				$method = 'find_videos_by_user_id';
-				$default = 'user_id';
-				$get_item_count = TRUE;
-				break;
 			case 'videosbycampaignid':
 				$method = 'find_videos_by_campaign_id';
 				$default = 'campaign_id';
-				$get_item_count = TRUE;
-				break;
-			case 'videosbytext':
-				$method = 'find_videos_by_text';
-				$default = 'text';
 				$get_item_count = TRUE;
 				break;
 			case 'videosbytags':
@@ -204,9 +189,24 @@ class BCMAPI
 				$default = 'or_tags';
 				$get_item_count = TRUE;
 				break;
+			case 'videosbytext':
+				$method = 'find_videos_by_text';
+				$default = 'text';
+				$get_item_count = TRUE;
+				break;
+			case 'videosbyuserid':
+				$method = 'find_videos_by_user_id';
+				$default = 'user_id';
+				$get_item_count = TRUE;
+				break;
 			case 'modifiedvideos':
 				$method = 'find_modified_videos';
 				$default = 'from_date';
+				$get_item_count = TRUE;
+				break;
+			case 'relatedvideos':
+				$method = 'find_related_videos';
+				$default = 'video_id';
 				$get_item_count = TRUE;
 				break;
 			case 'allplaylists':
