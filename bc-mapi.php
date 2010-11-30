@@ -144,13 +144,18 @@ class BCMAPI
 				$default = 'video_id';
 				$get_item_count = FALSE;
 				break;
-			case 'relatedvideos':
-				$method = 'find_related_videos';
+			case 'videobyidunfiltered':
+				$method = 'find_video_by_id_unfiltered';
 				$default = 'video_id';
-				$get_item_count = TRUE;
+				$get_item_count = FALSE;
 				break;
 			case 'videosbyids':
 				$method = 'find_videos_by_ids';
+				$default = 'video_ids';
+				$get_item_count = FALSE;
+				break;
+			case 'videosbyidsunfiltered':
+				$method = 'find_videos_by_ids_unfiltered';
 				$default = 'video_ids';
 				$get_item_count = FALSE;
 				break;
@@ -159,10 +164,25 @@ class BCMAPI
 				$default = 'reference_id';
 				$get_item_count = FALSE;
 				break;
+			case 'videobyreferenceidunfiltered':
+				$method = 'find_video_by_reference_id_unfiltered';
+				$default = 'reference_id';
+				$get_item_count = FALSE;
+				break;
 			case 'videosbyreferenceids':
 				$method = 'find_videos_by_reference_ids';
 				$default = 'reference_ids';
 				$get_item_count = FALSE;
+				break;
+			case 'videosbyreferenceidsunfiltered':
+				$method = 'find_videos_by_reference_ids_unfiltered';
+				$default = 'reference_ids';
+				$get_item_count = FALSE;
+				break;
+			case 'relatedvideos':
+				$method = 'find_related_videos';
+				$default = 'video_id';
+				$get_item_count = TRUE;
 				break;
 			case 'videosbyuserid':
 				$method = 'find_videos_by_user_id';
