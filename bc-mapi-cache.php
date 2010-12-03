@@ -6,7 +6,7 @@
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveosi/
+ *	 Source: http://github.com/brightcoveos/
  *
  * AUTHORS:
  *	 Matthew Congrove, Professional Services Engineer, Brightcove

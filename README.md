@@ -11,7 +11,7 @@
 </h1>
 
 <p>
-	You can download the latest package at the <a href="http://github.com/brightcoveosi/PHP-MAPI-Wrapper">GitHub</a> page.
+	You can download the latest package at the <a href="http://github.com/brightcoveos/PHP-MAPI-Wrapper">GitHub</a> page.
 </p>
 
 <h1>
@@ -19,7 +19,7 @@
 </h1>
 
 <p>
-	You can check out the latest source code at the <a href="http://github.com/brightcoveosi/PHP-MAPI-Wrapper">GitHub</a> page; please note that there is no guarantee of code usability or stability.
+	You can check out the latest source code at the <a href="http://github.com/brightcoveos/PHP-MAPI-Wrapper">GitHub</a> page; please note that there is no guarantee of code usability or stability.
 </p>
 
 <h1>
