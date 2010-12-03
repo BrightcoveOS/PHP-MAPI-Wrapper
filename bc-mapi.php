@@ -1,13 +1,13 @@
 <?php
 
 /**
- * BC PHP MAPI WRAPPER 2.0.0 (30 NOVEMBER 2010)
+ * BC PHP MAPI WRAPPER 2.0.0 (3 DECEMBER 2010)
  * A Brightcove PHP Media API wrapper
  * (Formerly known as Echove)
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveosi/
+ *	 Source: http://github.com/brightcoveos/
  *
  * AUTHORS:
  *	 Matthew Congrove, Professional Services Engineer, Brightcove
@@ -344,6 +344,8 @@ class BCMAPI
 
 			$current_page++;
 		}
+		
+		$this->timeout_current = 0;
 
 		return $assets;
 	}
@@ -405,6 +407,8 @@ class BCMAPI
 		}
 
 		$url = str_replace(array('%2526', '%253D'), array('&', '='), $this->appendParams('search_' . $type . 's', $params));
+		
+		$this->timeout_current = 0;
 
 		return $this->getData($url);
 	}
@@ -1236,7 +1240,7 @@ class BCMAPI
 
 		if($response && $response != 'NULL')
 		{
-			$response_object = json_decode($response);
+			$response_object = json_decode(preg_replace('/[[:cntrl:]]/', '', $response));;
 
 			if(isset($response_object->error))
 			{
@@ -1252,7 +1256,7 @@ class BCMAPI
 						}
 					}
 
-					$this->getData($url);
+					return $this->getData($url);
 				} else {
 					throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object->error);
 				}
@@ -1298,7 +1302,7 @@ class BCMAPI
 
 		if($return_json)
 		{
-			$response_object = json_decode($response);
+			$response_object = json_decode(preg_replace('/[[:cntrl:]]/', '', $response));
 
 			if(!isset($response_object->result))
 			{
