@@ -2,29 +2,29 @@
 <root>
 	<error>
 		<key>
-			EchoveApiError
+			BCMAPIApiError
 		</key>
 		<name>
 			API error.
 		</name>
 		<description>
-			This is the most generic error returned from Echove as it is thrown whenever the API returns unexpected data, or an error. The API return data will be included in the error to help you diagnose the problem.
+			This is the most generic error returned from BCMAPI as it is thrown whenever the API returns unexpected data, or an error. The API return data will be included in the error to help you diagnose the problem.
 		</description>
 	</error>
 	<error>
 		<key>
-			EchoveDeprecated
+			BCMAPIDeprecated
 		</key>
 		<name>
 			Access to this method or property has been deprecated.
 		</name>
 		<description>
-			The requested item is no longer supported by Brightcove and/or Echove. Stop using this method as early as possible, as the item could be removed in any future release.
+			The requested item is no longer supported by Brightcove and/or BCMAPI. Stop using this method as early as possible, as the item could be removed in any future release.
 		</description>
 	</error>
 	<error>
 		<key>
-			EchoveDtoDoesNotExist
+			BCMAPIDtoDoesNotExist
 		</key>
 		<name>
 			The DTO does not exist.
@@ -35,7 +35,7 @@
 	</error>
 	<error>
 		<key>
-			EchoveIdNotProvided
+			BCMAPIIdNotProvided
 		</key>
 		<name>
 			ID not provided.
@@ -46,7 +46,7 @@
 	</error>
 	<error>
 		<key>
-			EchoveInvalidFileType
+			BCMAPIInvalidFileType
 		</key>
 		<name>
 			Unsupported file type.
@@ -57,40 +57,40 @@
 	</error>
 	<error>
 		<key>
-			EchoveInvalidMethod
+			BCMAPIInvalidMethod
 		</key>
 		<name>
 			Requested method not found.
 		</name>
 		<description>
-			The "find" method being requested is not supported by Echove, or does not exist in the Brightcove API. Remove the method call and check both the Echove and Brightcove API documentation.
+			The "find" method being requested is not supported by BCMAPI, or does not exist in the Brightcove API. Remove the method call and check both the BCMAPI and Brightcove API documentation.
 		</description>
 	</error>
 	<error>
 		<key>
-			EchoveInvalidProperty
+			BCMAPIInvalidProperty
 		</key>
 		<name>
 			Requested property not found.
 		</name>
 		<description>
-			The Echove property you are trying to set or retrieve does not exist. Check the Echove documentation.
+			The BCMAPI property you are trying to set or retrieve does not exist. Check the BCMAPI documentation.
 		</description>
 	</error>
 	<error>
 		<key>
-			EchoveInvalidType
+			BCMAPIInvalidType
 		</key>
 		<name>
 			Type not specified.
 		</name>
 		<description>
-			The DTO type (video, playlist, image, etc) you specified is not allowed for the method. Check both the Echove and Brightcove API documentation.
+			The DTO type (video, playlist, image, etc) you specified is not allowed for the method. Check both the BCMAPI and Brightcove API documentation.
 		</description>
 	</error>
 	<error>
 		<key>
-			EchoveSearchTermsNotProvided
+			BCMAPISearchTermsNotProvided
 		</key>
 		<name>
 			Search terms not provided.
@@ -101,7 +101,7 @@
 	</error>
 	<error>
 		<key>
-			EchoveTokenError
+			BCMAPITokenError
 		</key>
 		<name>
 			Read / Write token not provided.
@@ -112,7 +112,7 @@
 	</error>
 	<error>
 		<key>
-			EchoveTransactionError
+			BCMAPITransactionError
 		</key>
 		<name>
 			Read / Write API transaction failed.

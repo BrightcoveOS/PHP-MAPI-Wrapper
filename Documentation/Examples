@@ -5,16 +5,16 @@
 	Instantiation
 </name>
 <description>
-	<![CDATA[This example shows how to instantiate, or start, the Echove PHP class. The first token, which is for the Read API, is required. The second token is for the Write API and is optional.]]>
+	<![CDATA[This example shows how to instantiate, or start, the BCMAPI PHP class. The first token, which is for the Read API, is required. The second token is for the Write API and is optional.]]>
 </description>
 <code>
 <![CDATA[&lt;?php
 	
-	# Include the Echove SDK
-	require('echove.php');
+	# Include the BCMAPI SDK
+	require('bc-mapi.php');
 	
 	# Instantiate the class, passing it our Brightcove API tokens
-	$bc = new Echove(
+	$bc = new BCMAPI(
 		'z9Jp-c3-KhWc4fqNf1JWz6SkLDlbO0m8UAwOjDBUSt0.',
 		'z9Jp-c3-KhUSoOh0IV8SA6ghleZlti6W9mmC_IhdCnybDfHqhmloA..'
 	);
@@ -27,25 +27,25 @@
 	Properties
 </name>
 <description>
-	<![CDATA[This example shows how to set and retrieve some of the Echove properties that can be used for debugging and additional settings.]]>
+	<![CDATA[This example shows how to set and retrieve some of the BCMAPI properties that can be used for debugging and additional settings.]]>
 </description>
 <code>
 <![CDATA[&lt;?php
 	
 	# Turn on HTTPS mode
-	$e->__set('secure', TRUE);
+	$bc->__set('secure', TRUE);
 	
 	# Make our API call
-	$videos = $e->find('allVideos');
+	$videos = $bc->find('allVideos');
 	
 	# Determine how many possible results there are
-	echo 'Total Videos: ' . $e->total_count . '&lt;br /&gt;';
+	echo 'Total Videos: ' . $bc->total_count . '&lt;br /&gt;';
 
 	# Make our API call
-	$videos = $e->findAll();
+	$videos = $bc->findAll();
 	
 	# Determine how many times we called the Brightcove API
-	echo 'API Calls: ' . $e->__get('api_calls');
+	echo 'API Calls: ' . $bc->__get('api_calls');
 		
 ?&gt;]]>
 </code>
@@ -55,7 +55,7 @@
 	Error Handling
 </name>
 <description>
-	<![CDATA[This example shows how to utilize the built-in error handling in Echove.]]>
+	<![CDATA[This example shows how to utilize the built-in error handling in BCMAPI.]]>
 </description>
 <code>
 <![CDATA[&lt;?php
@@ -63,7 +63,7 @@
 	# Create a try/catch
 	try {
 		# Make our API call
-		$video = $e->find('find_video_by_id', 8604819001);
+		$video = $bc->find('find_video_by_id', 8604819001);
 	} catch(Exception $error) {
 		# Handle our error
 		echo $error;
@@ -84,7 +84,7 @@
 <![CDATA[&lt;?php
 	
 	# Make our API call
-	$video = $e->find('find_video_by_id', 8604819001);
+	$video = $bc->find('find_video_by_id', 8604819001);
 
 	# Print the video name and ID
 	echo $video->name . ' (' . $video->id . ')';
@@ -103,7 +103,7 @@
 <![CDATA[&lt;?php
 	
 	# Make our API call
-	$video = $e->find('videoById', 8604819001);
+	$video = $bc->find('videoById', 8604819001);
 
 ?&gt;]]>
 </code>
@@ -125,7 +125,7 @@
 	);
 	
 	# Make our API call
-	$video = $e->find('videoById', $params);
+	$video = $bc->find('videoById', $params);
 		
 ?&gt;]]>
 </code>
@@ -146,7 +146,7 @@
 	);
 	
 	# Make our API call
-	$videos = $e->findAll('video', $params);
+	$videos = $bc->findAll('video', $params);
 		
 ?&gt;]]>
 </code>
@@ -173,7 +173,7 @@
 	);
 	
 	# Make our API call
-	$videos = $e->search('video', $terms, $params);
+	$videos = $bc->search('video', $terms, $params);
 		
 ?&gt;]]>
 </code>
@@ -199,7 +199,7 @@
 	);
 	
 	# Make our API call
-	$videos = $e->search('video', $terms, $params);
+	$videos = $bc->search('video', $terms, $params);
 		
 ?&gt;]]>
 </code>
@@ -225,7 +225,7 @@
 	$file = '/tmp/' . $_FILES['videoFile']['name'];
 	
 	# Upload the video and save the video ID
-	$id = $e->createMedia('video', $file, $metaData);
+	$id = $bc->createMedia('video', $file, $metaData);
 
 ?&gt;]]>
 </code>
@@ -251,7 +251,7 @@
 	$file = '/tmp/' . $_FILES['bcImage']['name'];
 	
 	# Upload the image, assign to a video, and save the image asset ID
-	$id = $e->createImage('video', $file, $metaData, 8604819001);
+	$id = $bc->createImage('video', $file, $metaData, 8604819001);
 
 ?&gt;]]>
 </code>
@@ -278,7 +278,7 @@
 	);
 	
 	# Create the playlist and save the playlist ID
-	$id = $e->createPlaylist('video', $metaData);
+	$id = $bc->createPlaylist('video', $metaData);
 
 ?&gt;]]>
 </code>
@@ -300,7 +300,7 @@
 	);
 	
 	# Update a video with the new meta data
-	$e->update('video', $metaData);
+	$bc->update('video', $metaData);
 
 ?&gt;]]>
 </code>
@@ -316,7 +316,7 @@
 <![CDATA[&lt;?php
 			
 	# Delete a 'video' by ID, and cascade the deletion
-	$e->delete('video', 8604819001, NULL, TRUE);
+	$bc->delete('video', 8604819001, NULL, TRUE);
 
 ?&gt;]]>
 </code>
@@ -332,7 +332,7 @@
 <![CDATA[&lt;?php
 	
 	# Retrieve upload status		
-	$status = $e->getStatus('video', 8604819001);
+	$status = $bc->getStatus('video', 8604819001);
 
 ?&gt;]]>
 </code>
@@ -353,7 +353,7 @@
 	);
 	
 	# Share the videos, and save the new video IDs
-	$new_ids = $e->shareMedia('video', 8604819001, $ids);
+	$new_ids = $bc->shareMedia('video', 8604819001, $ids);
 
 ?&gt;]]>
 </code>
@@ -369,10 +369,10 @@
 <![CDATA[&lt;?php
 			
 	# Add two videos to a playlist
-	$e->addToPlaylist(44969780001, array(45061414001, 45062831001));
+	$bc->addToPlaylist(44969780001, array(45061414001, 45062831001));
 	
 	# Remove a video from a playlist
-	$e->removeFromPlaylist(44969780001, 45062831001);
+	$bc->removeFromPlaylist(44969780001, 45062831001);
 
 ?&gt;]]>
 </code>
@@ -382,17 +382,17 @@
 	SEF URLs / Time Formatting
 </name>
 <description>
-	<![CDATA[This example shows the Echove convenience methods that convert video titles into a search-engine friendly format and video lengths into formatted strings.]]>
+	<![CDATA[This example shows the BCMAPI convenience methods that convert video titles into a search-engine friendly format and video lengths into formatted strings.]]>
 </description>
 <code>
 <![CDATA[&lt;?php
 	
 	# Make our API call
-	$video = $e->find('videoById', 8604819001);
+	$video = $bc->find('videoById', 8604819001);
 	
 	# Print the SEF video name and formatted duration
-	echo 'Name: ' . $e->sef($video->name) . '&lt;br /&gt;';
-	echo 'Duration:' . $e->time($video->length) . '&lt;br /&gt;';
+	echo 'Name: ' . $bc->sef($video->name) . '&lt;br /&gt;';
+	echo 'Duration:' . $bc->time($video->length) . '&lt;br /&gt;';
 		
 ?&gt;]]>
 </code>
@@ -411,13 +411,13 @@
 	$time = time() - 604800;
 	
 	# Make our API call
-	$videos = $e->find('modifiedVideos', $time);
+	$videos = $bc->find('modifiedVideos', $time);
 	
 	# Set timestamp to 7 days ago (in minutes)
 	$time = floor((time() - 604800) / 60);
 	
 	# Make our API call
-	$videos = $e->find('modifiedVideos', $time);
+	$videos = $bc->find('modifiedVideos', $time);
 		
 ?&gt;]]>
 </code>
@@ -433,10 +433,10 @@
 <![CDATA[&lt;?php
 	
 	# Make our API call
-	$video = $e->find('videoById', 8604819001);
+	$video = $bc->find('videoById', 8604819001);
 	
 	# Parse any key=value tags into array
-	$video->tags = $e->tags($video->tags);
+	$video->tags = $bc->tags($video->tags);
 	
 	# Print out each tag
 	foreach($video->tags as $key => $value)
@@ -458,10 +458,10 @@
 <![CDATA[&lt;?php
 	
 	# Make our API call
-	$videos = $e->find('allVideos');
+	$videos = $bc->find('allVideos');
 	
 	# Remove all videos without specified tags
-	$videos = $e->filter($videos, 'published=true,include=true');
+	$videos = $bc->filter($videos, 'published=true,include=true');
 		
 ?&gt;]]>
 </code>

@@ -6,7 +6,7 @@
 		</name>
 		<summary>
 			<![CDATA[
-				<p>The constructor for the Echove class.</p>
+				<p>The constructor for the BCMAPI class.</p>
 			]]>
 		</summary>
 		<arguments>
@@ -52,7 +52,7 @@
 				<name>bit32</name>
 				<access>Private</access>
 				<type>Boolean</type>
-				<description>Whether Echove is operating in 32-bit compatibility mode</description>
+				<description>Whether BCMAPI is operating in 32-bit compatibility mode</description>
 			</item>
 			<item>
 				<name>media_delivery</name>
@@ -64,13 +64,13 @@
 				<name>secure</name>
 				<access>Private</access>
 				<type>Boolean</type>
-				<description>Whether Echove is operating over HTTPS</description>
+				<description>Whether BCMAPI is operating over HTTPS</description>
 			</item>
 			<item>
 				<name>show_notices</name>
 				<access>Private</access>
 				<type>Boolean</type>
-				<description>Whether Echove will send error notices</description>
+				<description>Whether BCMAPI will send error notices</description>
 			</item>
 			<item>
 				<name>timeout_attempts</name>
@@ -134,7 +134,7 @@
 		</name>
 		<summary>
 			<![CDATA[
-				<p>Sets a property of the Echove class.</p>
+				<p>Sets a property of the BCMAPI class.</p>
 			]]>
 		</summary>
 		<arguments>
@@ -162,7 +162,7 @@
 		</name>
 		<summary>
 			<![CDATA[
-				<p>Retrieves a property of the Echove class.</p>
+				<p>Retrieves a property of the BCMAPI class.</p>
 			]]>
 		</summary>
 		<arguments>
