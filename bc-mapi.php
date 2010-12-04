@@ -10,11 +10,11 @@
  *	 Source: http://github.com/brightcoveos/
  *
  * AUTHORS:
- *	 Matthew Congrove, Professional Services Engineer, Brightcove
- *	 Brian Franklin, Professional Services Engineer, Brightcove
+ *	 Matthew Congrove <mcongrove@brightcove.com>
+ *	 Brian Franklin <bfranklin@brightcove.com>
  *
  * CONTRIBUTORS:
- *	 Luke Weber, Kristen McGregor, Brandon Aaskov, Jesse Streb
+ *	 Luke Weber, Brandon Aaskov, Kristen McGregor, Jesse Streb
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this
  * software and associated documentation files (the "Software"), to deal in the Software
