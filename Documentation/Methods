@@ -49,12 +49,6 @@
 				<description>The total number of API calls that have been processed</description>
 			</item>
 			<item>
-				<name>bit32</name>
-				<access>Private</access>
-				<type>Boolean</type>
-				<description>Whether BCMAPI is operating in 32-bit compatibility mode</description>
-			</item>
-			<item>
 				<name>media_delivery</name>
 				<access>Private</access>
 				<type>String</type>
@@ -79,12 +73,6 @@
 				<description>The number of times to retry a call in case of API timeout</description>
 			</item>
 			<item>
-				<name>timeout_current</name>
-				<access>Private</access>
-				<type>Integer</type>
-				<description>The current API timeout retry attempt</description>
-			</item>
-			<item>
 				<name>timeout_delay</name>
 				<access>Private</access>
 				<type>Integer</type>
@@ -107,24 +95,6 @@
 				<access>Private</access>
 				<type>String</type>
 				<description>The write Brightcove token to use</description>
-			</item>
-			<item>
-				<name>url_read</name>
-				<access>Private</access>
-				<type>String</type>
-				<description>The Brightcove Read API URL</description>
-			</item>
-			<item>
-				<name>url_write</name>
-				<access>Private</access>
-				<type>String</type>
-				<description>The Brightcove Write API URL</description>
-			</item>
-			<item>
-				<name>valid_types</name>
-				<access>Private</access>
-				<type>Array</type>
-				<description>An array of valid object / media asset types</description>
 			</item>
 		</properties>
 	</method>
@@ -684,7 +654,7 @@
 	</method>
 	<method>
 		<name>
-			time
+			convertTime
 		</name>
 		<summary>
 			<![CDATA[
@@ -714,7 +684,7 @@
 	</method>
 	<method>
 		<name>
-			tags
+			convertTags
 		</name>
 		<summary>
 			<![CDATA[
@@ -744,7 +714,7 @@
 	</method>
 	<method>
 		<name>
-			filter
+			tagsFilter
 		</name>
 		<summary>
 			<![CDATA[

@@ -987,7 +987,7 @@ class BCMAPI
 	 * @param bool [$seconds] Whether to return only seconds
 	 * @return mixed The formatted length or total seconds of the media asset
 	 */
-	public function time($ms, $seconds = FALSE)
+	public function convertTime($ms, $seconds = FALSE)
 	{
 		$total_seconds = ($ms / 1000);
 
@@ -1033,6 +1033,15 @@ class BCMAPI
 			return $time;
 		}
 	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function time($ms, $seconds = FALSE)
+	{
+		return convertTime($ms, $seconds);
+	}
 
 	/**
 	 * Parses media asset tags array into a key-value array.
@@ -1042,7 +1051,7 @@ class BCMAPI
 	 * @param bool [$implode] Return array to Brightcove format
 	 * @return array A key-value array of tags
 	 */
-	public function tags($tags, $implode = FALSE)
+	public function convertTags($tags, $implode = FALSE)
 	{
 		$return = array();
 
@@ -1092,6 +1101,15 @@ class BCMAPI
 
 		return $return;
 	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function tags($tags, $implode = FALSE)
+	{
+		return convertTags($tags, $implode);
+	}
 
 	/**
 	 * Removes assets that don't contain the appropriate tags.
@@ -1101,7 +1119,7 @@ class BCMAPI
 	 * @param string [$tag] A comma-separated list of tags to filter on
 	 * @return array The filtered list of assets
 	 */
-	public function filter($assets, $tags)
+	public function tagsFilter($assets, $tags)
 	{
 		$filtered = array();
 
@@ -1119,6 +1137,15 @@ class BCMAPI
 		}
 
 		return $filtered;
+	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function filter($assets, $tags)
+	{
+		return tagsFilter($assets, $tags);
 	}
 
 	/**
