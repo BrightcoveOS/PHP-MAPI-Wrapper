@@ -1,12 +1,11 @@
 <?php
 
 /**
- * BC PHP MAPI CACHING LAYER 1.0.0 (12 OCTOBER 2010)
- * A caching layer for the Brightcove PHP Media API Wrapper
+ * Brightcove PHP MAPI Wrapper Caching Layer 1.0.0 (12 OCTOBER 2010)
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveos/
+ *	 Source: http://github.com/brightcoveos
  *
  * AUTHORS:
  *	 Matthew Congrove <mcongrove@brightcove.com>

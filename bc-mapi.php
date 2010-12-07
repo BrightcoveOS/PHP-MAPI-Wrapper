@@ -1,13 +1,12 @@
 <?php
 
 /**
- * BC PHP MAPI WRAPPER 2.0.0 (7 DECEMBER 2010)
- * A Brightcove PHP Media API wrapper
+ * Brightcove PHP MAPI Wrapper 2.0.0 (7 DECEMBER 2010)
  * (Formerly known as Echove)
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveos/
+ *	 Source: http://github.com/brightcoveos
  *
  * AUTHORS:
  *	 Matthew Congrove <mcongrove@brightcove.com>
