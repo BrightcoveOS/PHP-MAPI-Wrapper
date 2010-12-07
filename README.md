@@ -1,39 +1,35 @@
-<h1>
-	About
-</h1>
+About
+=====
 
-<p>
-	This project provides a starting point for integrating the Brightcove Media API into your application. It provides simple ways to interact with the API, as well as a long list of helper functions.
-</p>
+This project provides a starting point for integrating the Brightcove Media
+API into your application. It provides simple ways to interact with the
+API, as well as a long list of helper functions.
 
-<h1>
-	Download
-</h1>
+Download
+========
 
-<p>
-	You can download the latest package at the <a href="http://github.com/brightcoveos/PHP-MAPI-Wrapper">GitHub</a> page.
-</p>
+You can download the latest package at the
+[GitHub](http://github.com/brightcoveos/PHP-MAPI-Wrapper) page.
 
-<h1>
-	Latest Source
-</h1>
+Latest Source
+=============
 
-<p>
-	You can check out the latest source code at the <a href="http://github.com/brightcoveos/PHP-MAPI-Wrapper">GitHub</a> page; please note that there is no guarantee of code usability or stability.
-</p>
+You can check out the latest source code at the
+[GitHub](http://github.com/brightcoveos/PHP-MAPI-Wrapper) page; please note
+that there is no guarantee of code usability or stability.
 
-<h1>
-	Requirements
-</h1>
+Requirements
+============
 
-<p>
-	You must have PHP version 5.2 or greater, or you must have the JavaScript Object Notation (JSON) PECL package. For more information on the JSON PECL package, please visit the <a href="http://www.php.net/json">PHP JSON</a> package website.
-</p>
+You must have PHP version 5.2 or greater, or you must have the JavaScript
+Object Notation (JSON) PECL package. For more information on the JSON PECL
+package, please visit the [PHP JSON](http://www.php.net/json)
+package website.
 
-<h1>
-	Support
-</h1>
+Support
+=======
 
-<p>
-	Please note that Open Source Initiative projects are <strong>not</strong> supported by Brightcove and all questions, comments or issues should be reported through the appropriate OSI channels. Brightcove Customer Support will <strong>not</strong> assist you with any Open Source Initiative projects or integrations.
-</p>
+Please note that Open Source Initiative projects are **not** supported by
+Brightcove and all questions, comments or issues should be reported through
+the appropriate OSI channels. Brightcove Customer Support will **not**
+assist you with any Open Source Initiative projects or integrations.
