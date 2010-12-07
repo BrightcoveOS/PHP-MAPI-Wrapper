@@ -35,5 +35,5 @@
 </h1>
 
 <p>
-	Please note that Open Source Initiative projects are *not* supported by Brightcove and all questions, comments or issues should be reported through the appropriate OSI channels. Brightcove Customer Support will *not* assist you with any Open Source Initiative projects or integrations.
+	Please note that Open Source Initiative projects are <strong>not</strong> supported by Brightcove and all questions, comments or issues should be reported through the appropriate OSI channels. Brightcove Customer Support will <strong>not</strong> assist you with any Open Source Initiative projects or integrations.
 </p>
