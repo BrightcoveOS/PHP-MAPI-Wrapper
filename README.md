@@ -29,7 +29,11 @@ package website.
 Support
 =======
 
-Please note that Open Source Initiative projects are **not** supported by
+Please note that Open Source @ Brightcove projects are **not** supported by
 Brightcove and all questions, comments or issues should be reported through
-the appropriate OSI channels. Brightcove Customer Support will **not**
-assist you with any Open Source Initiative projects or integrations.
+the appropriate OS@B channels. Brightcove Customer Support will **not**
+assist you with any Open Source @ Brightcove projects or integrations.
+
+You can file issues in the
+[GitHub Issue Tracker](http://github.com/brightcoveos/PHP-MAPI-Wrapper/issues/)
+or request support in the [support forums](http://opensource.brightcove.com/forum/).
