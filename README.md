@@ -14,26 +14,28 @@ You can download the latest package at the
 Latest Source
 =============
 
-You can check out the latest source code at the
-[GitHub](http://github.com/brightcoveos/PHP-MAPI-Wrapper) page; please note
-that there is no guarantee of code usability or stability.
+Visit [GitHub](http://github.com/brightcoveos/PHP-MAPI-Wrapper) for the
+latest source code.
+
+Please note that there is no guarantee of code usability or stability.
 
 Requirements
 ============
 
 You must have PHP version 5.2 or greater, or you must have the JavaScript
-Object Notation (JSON) PECL package. For more information on the JSON PECL
-package, please visit the [PHP JSON](http://www.php.net/json)
-package website.
+Object Notation (JSON) PECL package.
+
+For more information on the JSON PECL package, please visit the
+[PHP JSON](http://www.php.net/json) package website.
 
 Support
 =======
+
+File Issues: [GitHub Issue Tracker](http://github.com/brightcoveos/PHP-MAPI-Wrapper/issues/)
+
+Request Support: [Support Forums](http://opensource.brightcove.com/forum/).
 
 Please note that Open Source @ Brightcove projects are **not** supported by
 Brightcove and all questions, comments or issues should be reported through
 the appropriate OS@B channels. Brightcove Customer Support will **not**
 assist you with any Open Source @ Brightcove projects or integrations.
-
-You can file issues in the
-[GitHub Issue Tracker](http://github.com/brightcoveos/PHP-MAPI-Wrapper/issues/)
-or request support in the [support forums](http://opensource.brightcove.com/forum/).
