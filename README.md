@@ -33,7 +33,7 @@ Support
 
 File Issues: [GitHub Issue Tracker](http://github.com/brightcoveos/PHP-MAPI-Wrapper/issues/)
 
-Request Support: [Support Forums](http://opensource.brightcove.com/forum/).
+Request Support: [Support Forums](http://opensource.brightcove.com/forum/)
 
 Please note that Open Source @ Brightcove projects are **not** supported by
 Brightcove and all questions, comments or issues should be reported through
