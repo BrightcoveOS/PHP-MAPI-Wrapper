@@ -22,8 +22,8 @@ Please note that there is no guarantee of code usability or stability.
 Requirements
 ============
 
-You must have PHP version 5.2 or greater, or you must have the JavaScript
-Object Notation (JSON) PECL package.
+PHP version 5.2 or greater, or you must have the JavaScript Object Notation
+(JSON) PECL package.
 
 For more information on the JSON PECL package, please visit the
 [PHP JSON](http://www.php.net/json) package website.
