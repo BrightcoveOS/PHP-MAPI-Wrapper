@@ -38,15 +38,15 @@ extension.
 	// Using flat files
 	$bc = new BCMAPI(API_READ_TOKEN, API_WRITE_TOKEN);
 	$bc_cache = new BCMAPICache('file', 600, '/var/www/myWebSite/cache/', '.cache');
-	
+
 	// Using Memcached
 	$bc = new BCMAPI(API_READ_TOKEN, API_WRITE_TOKEN);
 	$bc_cache = new BCMAPICache('memcached', 600, 'localhost', NULL, 11211);
 
 The parameters for the constructor are:
 
-*	string [$type] The type of caching method to use, either 'file' or 'memcached'
-*	int [$time] How many seconds until cache files are considered cold
-*	string [$location] The absolute path of the cache directory (file) or host (memcached)
-*	string [$extension] The file extension for cache items (file only)
-*	int [$port] The port to use (Memcached only)
+*	[string] The type of caching method to use, either 'file' or 'memcached'
+*	[int] How many seconds until cache files are considered cold
+*	[string] The absolute path of the cache directory (file) or host (memcached)
+*	[string] The file extension for cache items (file only)
+*	[int] The port to use (Memcached only)
