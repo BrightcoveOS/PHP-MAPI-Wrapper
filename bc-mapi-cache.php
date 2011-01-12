@@ -38,45 +38,79 @@
 
 class BCMAPICache
 {
-	public static $location = NULL;
-	public static $time = 0;
 	public static $extension = NULL;
+	public static $location = NULL;
+	public static $memcached = NULL;
+	public static $port = NULL;
+	public static $time = 0;
+	public static $type = NULL;
 
 	/**
 	 * The constructor for the BCMAPICache class.
 	 * @access Public
-	 * @since 1.0
-	 * @param string [$location] The absolute path of the cache directory
-	 * @param string [$time] How many seconds until cache files are considered cold
-	 * @param string [$extension] The file extension for cache items
+	 * @since 1.0.0
+	 * @param string [$type] The type of caching method to use, either 'file' or 'memcached'
+	 * @param int [$time] How many seconds until cache files are considered cold
+	 * @param string [$location] The absolute path of the cache directory (file) or host (memcached)
+	 * @param string [$extension] The file extension for cache items (file only)
+	 * @param int [$port] The port to use (Memcached only)
 	 */
-	public function __construct($location, $time = 600, $extension = '.c')
+	public function __construct($type = 'file', $time = 600, $location, $extension = '.c', $port = 11211)
 	{
-		self::$location = $location;
-		self::$time = $time;
+		
+		if(strtolower($type) == 'file')
+		{
+			$type == 'file';
+		} else if(strtolower($type) == 'memcache' || strtolower($type) == 'memcached') {
+			$type = 'memcached';
+			
+			$memcached = new Memcached();
+			$memcached->addServer($location, $port);
+			
+			self::$memcached = $memcached;
+		} else {
+			$type = FALSE;
+		}
+		
 		self::$extension = $extension;
+		self::$location = $location;
+		self::$port = $port;
+		self::$time = $time;
+		self::$type = $type;
 	}
 
 	/**
-	 * Checks for valid cached data.
+	 * Retrieves any valid cached data.
 	 * @access Public
-	 * @since 1.0
+	 * @since 1.0.1
 	 * @param string [$key] The cache file key
 	 * @return mixed The cached data if valid, otherwise FALSE
 	 */
-	public function check($key)
+	public function get($key)
 	{
-		$file = self::$location . md5($key) . self::$extension;
-
-		if(file_exists($file) && is_readable($file))
+		if(self::$type == 'flat')
 		{
-			if((time() - filemtime($file)) <= self::$time)
+			$file = self::$location . md5($key) . self::$extension;
+	
+			if(file_exists($file) && is_readable($file))
 			{
-				return file_get_contents($file);
+				if((time() - filemtime($file)) <= self::$time)
+				{
+					return file_get_contents($file);
+				}
 			}
+			
+			return FALSE;
+		} else if(self::$type == 'memcached') {
+			$data = self::$memcached->get($key);
+			
+			if(self::$memcached->getResultCode() == Memcached::RES_SUCCESS)
+			{
+				return $data;
+			}
+		} else {
+			return FALSE;
 		}
-
-		return FALSE;
 	}
 
 	/**
@@ -88,13 +122,20 @@ class BCMAPICache
 	 */
 	public function set($key, $data)
 	{
-		$file = self::$location . md5($key) . self::$extension;
-
-		if(is_writable(self::$location))
+		if(self::$type == 'file')
 		{
-			$handle = fopen($file, 'w');
-			fwrite($handle, json_encode($data));
-			fclose($handle);
+			$file = self::$location . md5($key) . self::$extension;
+	
+			if(is_writable(self::$location))
+			{
+				$handle = fopen($file, 'w');
+				fwrite($handle, json_encode($data));
+				fclose($handle);
+			}
+		} else if(self::$type == 'memcached') {
+			self::$memcached->set($key, $data, time() + self::$time);
+		} else {
+			return FALSE;
 		}
 	}
 }
