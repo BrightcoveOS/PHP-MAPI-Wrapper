@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brightcove PHP MAPI Wrapper 2.0.0 (7 DECEMBER 2010)
+ * Brightcove PHP MAPI Wrapper 2.0.1 (2 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
@@ -1275,7 +1275,7 @@ class BCMAPI
 
 		if($response && $response != 'NULL')
 		{
-			$response_object = json_decode(preg_replace('/[[:cntrl:]]/', '', $response));;
+			$response_object = json_decode(preg_replace('/[[:cntrl:]]/u', '', $response));;
 
 			if(isset($response_object->error))
 			{
@@ -1324,6 +1324,7 @@ class BCMAPI
 	 * @access Private
 	 * @since 1.0.0
 	 * @param array [$request] The data to send
+	 * @param bool [$return_json] Whether we should return any data or not
 	 * @return object An object containing all API return data
 	 */
 	private function putData($request, $return_json = TRUE)
@@ -1343,9 +1344,9 @@ class BCMAPI
 			{
 				throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object->error);
 			}
+			
+			return $response_object;
 		}
-
-		return $response_object;
 	}
 
 	/**
