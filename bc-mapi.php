@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brightcove PHP MAPI Wrapper 2.0.1 (2 FEBRUARY 2011)
+ * Brightcove PHP MAPI Wrapper 2.0.2 (8 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
@@ -1243,7 +1243,7 @@ class BCMAPI
 	{
 		if(class_exists('BCMAPICache'))
 		{
-			$cache = BCMAPICache::check($url);
+			$cache = BCMAPICache::get($url);
 
 			if($cache !== FALSE)
 			{
