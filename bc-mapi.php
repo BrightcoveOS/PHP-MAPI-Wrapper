@@ -1,54 +1,62 @@
 <?php
 
 /**
- * BC PHP MAPI WRAPPER 2.0.0 (7 DECEMBER 2010)
- * A Brightcove PHP Media API wrapper
+ * Brightcove PHP MAPI Wrapper 2.0.3 (14 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
  *	 Website: http://opensource.brightcove.com
- *	 Source: http://github.com/brightcoveos/
+ *	 Source: http://github.com/brightcoveos
  *
  * AUTHORS:
  *	 Matthew Congrove <mcongrove@brightcove.com>
  *	 Brian Franklin <bfranklin@brightcove.com>
  *
  * CONTRIBUTORS:
- *	 Luke Weber, Brandon Aaskov, Kristen McGregor, Jesse Streb
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this
- * software and associated documentation files (the "Software"), to deal in the Software
- * without restriction, including without limitation the rights to use, copy, modify,
- * merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to the following
- * conditions:
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
- * THE USE OR OTHER DEALINGS IN THE SOFTWARE. YOU AGREE TO RETAIN IN THE SOFTWARE AND ANY
- * MODIFICATIONS TO THE SOFTWARE THE REFERENCE URL INFORMATION, AUTHOR ATTRIBUTION AND
- * CONTRIBUTOR ATTRIBUTION PROVIDED HEREIN.
+ *	 Luke Weber, Brandon Aaskov
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the “Software”),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, alter, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to
+ * whom the Software is furnished to do so, subject to the following conditions:
+ *   
+ * 1. The permission granted herein does not extend to commercial use of
+ * the Software by entities primarily engaged in providing online video and
+ * related services.
+ *  
+ * 2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT ANY WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, SUITABILITY, TITLE,
+ * NONINFRINGEMENT, OR THAT THE SOFTWARE WILL BE ERROR FREE. IN NO EVENT
+ * SHALL THE AUTHORS, CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * CLAIM, DAMAGES OR OTHER LIABILITY WHATSOEVER, WHETHER IN AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
+ * THE SOFTWARE OR THE USE, INABILITY TO USE, OR OTHER DEALINGS IN THE SOFTWARE.
+ *  
+ * 3. NONE OF THE AUTHORS, CONTRIBUTORS, NOR BRIGHTCOVE SHALL BE RESPONSIBLE
+ * IN ANY MANNER FOR USE OF THE SOFTWARE.  THE SOFTWARE IS PROVIDED FOR YOUR
+ * CONVENIENCE AND ANY USE IS SOLELY AT YOUR OWN RISK.  NO MAINTENANCE AND/OR
+ * SUPPORT OF ANY KIND IS PROVIDED FOR THE SOFTWARE.
  */
 
 class BCMAPI
 {
 	const ERROR_API_ERROR = 1;
+	const ERROR_DEPRECATED = 99;
+	const ERROR_DTO_DOES_NOT_EXIST = 12;
 	const ERROR_ID_NOT_PROVIDED = 2;
+	const ERROR_INVALID_FILE_TYPE = 5;
 	const ERROR_INVALID_METHOD = 3;
 	const ERROR_INVALID_PROPERTY = 4;
-	const ERROR_INVALID_FILE_TYPE = 5;
 	const ERROR_INVALID_TYPE = 6;
 	const ERROR_INVALID_UPLOAD_OPTION = 7;
 	const ERROR_READ_API_TRANSACTION_FAILED = 8;
 	const ERROR_READ_TOKEN_NOT_PROVIDED = 9;
+	const ERROR_SEARCH_TERMS_NOT_PROVIDED = 13;
 	const ERROR_WRITE_API_TRANSACTION_FAILED = 10;
 	const ERROR_WRITE_TOKEN_NOT_PROVIDED = 11;
-	const ERROR_DTO_DOES_NOT_EXIST = 12;
-	const ERROR_SEARCH_TERMS_NOT_PROVIDED = 13;
-	const ERROR_DEPRECATED = 99;
 
 	public $page_number = NULL;
 	public $page_size = NULL;
@@ -436,26 +444,30 @@ class BCMAPI
 					if(isset($options['encode_to']))
 					{
 						unset($options['encode_to']);
-						$this->triggerError(self::ERROR_INVALID_UPLOAD_OPTION);
+						
+						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 
 					if(isset($options['create_multiple_renditions']))
 					{
 						$options['create_multiple_renditions'] = 'FALSE';
-						$this->triggerError(self::ERROR_INVALID_UPLOAD_OPTION);
+						
+						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 
 					if(isset($options['preserve_source_rendition']))
 					{
 						unset($options['preserve_source_rendition']);
-						$this->triggerError(self::ERROR_INVALID_UPLOAD_OPTION);
+						
+						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 				}
 
-				if($options['create_multiple_renditions'] === TRUE && $options['H264NoProcessing'] === TRUE)
+				if((isset($options['create_multiple_renditions']) && $options['create_multiple_renditions'] === TRUE) && (isset($options['H264NoProcessing']) && $options['H264NoProcessing'] === TRUE))
 				{
 					unset($options['H264NoProcessing']);
-					$this->triggerError(self::ERROR_INVALID_UPLOAD_OPTION);
+					
+					throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 				}
 			}
 		} else {
@@ -792,7 +804,7 @@ class BCMAPI
 	{
 		if(!isset($id) && !isset($ref_id))
 		{
-			$this->triggerError(self::ERROR_ID_NOT_PROVIDED);
+			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		$request = array();
@@ -1033,15 +1045,6 @@ class BCMAPI
 			return $time;
 		}
 	}
-	
-	/**
-	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
-	 */
-	public function time($ms, $seconds = FALSE)
-	{
-		return convertTime($ms, $seconds);
-	}
 
 	/**
 	 * Parses media asset tags array into a key-value array.
@@ -1101,15 +1104,6 @@ class BCMAPI
 
 		return $return;
 	}
-	
-	/**
-	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
-	 */
-	public function tags($tags, $implode = FALSE)
-	{
-		return convertTags($tags, $implode);
-	}
 
 	/**
 	 * Removes assets that don't contain the appropriate tags.
@@ -1122,30 +1116,28 @@ class BCMAPI
 	public function tagsFilter($assets, $tags)
 	{
 		$filtered = array();
+		$array = explode(',', strtolower($tags));
 
 		foreach($assets as $asset)
 		{
 			foreach($asset->tags as $k => $v)
 			{
-				$asset->tags[$k] = strtolower($v);
+				if(isset($asset->tags))
+				{
+					$asset->tags[$k] = strtolower($v);
+				}
 			}
 
-			if(count(array_intersect(explode(',', strtolower($tags)), $asset->tags)) > 0)
+			if(isset($asset->tags))
 			{
-				$filtered[] = $asset;
+				if(count(array_intersect($array, $asset->tags)) > 0)
+				{
+					$filtered[] = $asset;
+				}
 			}
 		}
 
 		return $filtered;
-	}
-	
-	/**
-	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
-	 */
-	public function filter($assets, $tags)
-	{
-		return tagsFilter($assets, $tags);
 	}
 
 	/**
@@ -1235,7 +1227,7 @@ class BCMAPI
 	{
 		if(class_exists('BCMAPICache'))
 		{
-			$cache = BCMAPICache::check($url);
+			$cache = BCMAPICache::get($url);
 
 			if($cache !== FALSE)
 			{
@@ -1267,11 +1259,11 @@ class BCMAPI
 
 		if($response && $response != 'NULL')
 		{
-			$response_object = json_decode(preg_replace('/[[:cntrl:]]/', '', $response));;
+			$response_object = json_decode(preg_replace('/[[:cntrl:]]/u', '', $response));;
 
 			if(isset($response_object->error))
 			{
-				if($this->timeout_retry && $response_object->error->code == 103 && $this->timeout_current < $this->timeout_attempts)
+				if($this->timeout_retry && $response_object->code == 103 && $this->timeout_current < $this->timeout_attempts)
 				{
 					if($this->timeout_delay > 0)
 					{
@@ -1285,7 +1277,7 @@ class BCMAPI
 
 					return $this->getData($url);
 				} else {
-					throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object->error);
+					throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object);
 				}
 			} else {
 				if(class_exists('BCMAPICache'))
@@ -1316,6 +1308,7 @@ class BCMAPI
 	 * @access Private
 	 * @since 1.0.0
 	 * @param array [$request] The data to send
+	 * @param bool [$return_json] Whether we should return any data or not
 	 * @return object An object containing all API return data
 	 */
 	private function putData($request, $return_json = TRUE)
@@ -1333,11 +1326,11 @@ class BCMAPI
 
 			if(!isset($response_object->result))
 			{
-				throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object->error);
+				throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object);
 			}
+			
+			return $response_object;
 		}
-
-		return $response_object;
 	}
 
 	/**
@@ -1420,6 +1413,33 @@ class BCMAPI
 			return TRUE;
 		}
 	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function filter($assets, $tags)
+	{
+		return $this->tagsFilter($assets, $tags);
+	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function tags($tags, $implode = FALSE)
+	{
+		return $this->convertTags($tags, $implode);
+	}
+	
+	/**
+	 * Dummy method for backwards compatability
+	 * @todo Deprecate in > 2.0.5
+	 */
+	public function time($ms, $seconds = FALSE)
+	{
+		return $this->convertTime($ms, $seconds);
+	}
 
 	/**
 	 * Returns the JavaScript version of the player embed code.
@@ -1436,31 +1456,15 @@ class BCMAPI
 	}
 
 	/**
-	 * Triggers an error if errors are enabled.
-	 * @access Private
-	 * @since 0.3.1
-	 * @param string [$err_code] The code number of an error
-	 */
-	private function triggerError($err_code)
-	{
-		$text = $this->getErrorAsString($err_code);
-
-		if($this->show_notices)
-		{
-			trigger_error($text, E_USER_NOTICE);
-		}
-	}
-
-	/**
 	 * Converts an error code into a textual representation.
 	 * @access public
 	 * @since 1.0.0
-	 * @param int [$err_code] The code number of an error
+	 * @param int [$error_code] The code number of an error
 	 * @return string The error text
 	 */
-	public function getErrorAsString($err_code)
+	public function getErrorAsString($error_code)
 	{
-		switch($err_code)
+		switch($error_code)
 		{
 			case self::ERROR_API_ERROR:
 				return 'API error';
@@ -1515,20 +1519,26 @@ class BCMAPIException extends Exception
 	 * @access Public
 	 * @since 1.0.0
 	 * @param object [$obj] A pointer to the BCMAPI class
-	 * @param int [$err_code] The error code
-	 * @param string [$raw_error_string] Any additional error information
+	 * @param int [$error_code] The error code
+	 * @param string [$raw_error] Any additional error information
 	 */
-	public function __construct(BCMAPI $obj, $err_code, $raw_error_string = NULL)
+	public function __construct(BCMAPI $obj, $error_code, $raw_error = NULL)
 	{
-		$error = $obj->getErrorAsString($err_code);
+		$error = $obj->getErrorAsString($error_code);
 
-		if(isset($raw_error_string))
+		if(isset($raw_error))
 		{
-			$error .= "'.\nDetails: ";
-			$error .= isset($raw_error_string->message) ? $raw_error_string->message . ' (' . $raw_error_string->code . ':' . $raw_error_string->name . ')' . "\n" : $raw_error_string . "\n";
+			if(isset($raw_error->error) && is_array($raw_error->error))
+			{
+				$raw_error = $raw_error->error;
+			}
+			
+			$error .= "'\n";
+			$error .= (isset($raw_error->message) && isset($raw_error->code)) ? '== ' . $raw_error->message . ' (' . $raw_error->code . ') ==' . "\n" : '';
+			$error .= isset($raw_error->errors[0]) ? '== ' . $raw_error->errors[0]->error . ' (' . $raw_error->errors[0]->code . ') ==' . "\n" : '';
 		}
 
-		parent::__construct($error, $err_code);
+		parent::__construct($error, $error_code);
 	}
 }
 
@@ -1540,6 +1550,7 @@ class BCMAPIInvalidFileType extends BCMAPIException{}
 class BCMAPIInvalidMethod extends BCMAPIException{}
 class BCMAPIInvalidProperty extends BCMAPIException{}
 class BCMAPIInvalidType extends BCMAPIException{}
+class BCMAPIInvalidUploadOption extends BCMAPIException{}
 class BCMAPISearchTermsNotProvided extends BCMAPIException{}
 class BCMAPITokenError extends BCMAPIException{}
 class BCMAPITransactionError extends BCMAPIException{}
