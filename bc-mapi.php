@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brightcove PHP MAPI Wrapper 2.0.3 (14 FEBRUARY 2011)
+ * Brightcove PHP MAPI Wrapper 2.0.4 (17 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
@@ -1528,7 +1528,7 @@ class BCMAPIException extends Exception
 
 		if(isset($raw_error))
 		{
-			if(isset($raw_error->error) && is_array($raw_error->error))
+			if(isset($raw_error->error) && isset($raw_error->error->message) && isset($raw_error->error->code))
 			{
 				$raw_error = $raw_error->error;
 			}
