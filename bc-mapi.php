@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brightcove PHP MAPI Wrapper 2.0.4 (17 FEBRUARY 2011)
+ * Brightcove PHP MAPI Wrapper 2.0.4 (18 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
@@ -1416,7 +1416,7 @@ class BCMAPI
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function filter($assets, $tags)
 	{
@@ -1425,7 +1425,7 @@ class BCMAPI
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function tags($tags, $implode = FALSE)
 	{
@@ -1434,7 +1434,7 @@ class BCMAPI
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function time($ms, $seconds = FALSE)
 	{
