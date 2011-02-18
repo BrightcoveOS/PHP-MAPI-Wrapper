@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Brightcove PHP MAPI Wrapper 2.0.3 (14 FEBRUARY 2011)
+ * Brightcove PHP MAPI Wrapper 2.0.4 (18 FEBRUARY 2011)
  * (Formerly known as Echove)
  *
  * REFERENCES:
@@ -463,7 +463,7 @@ class BCMAPI
 					}
 				}
 
-				if($options['create_multiple_renditions'] === TRUE && $options['H264NoProcessing'] === TRUE)
+				if((isset($options['create_multiple_renditions']) && $options['create_multiple_renditions'] === TRUE) && (isset($options['H264NoProcessing']) && $options['H264NoProcessing'] === TRUE))
 				{
 					unset($options['H264NoProcessing']);
 					
@@ -1116,17 +1116,24 @@ class BCMAPI
 	public function tagsFilter($assets, $tags)
 	{
 		$filtered = array();
+		$array = explode(',', strtolower($tags));
 
 		foreach($assets as $asset)
 		{
 			foreach($asset->tags as $k => $v)
 			{
-				$asset->tags[$k] = strtolower($v);
+				if(isset($asset->tags))
+				{
+					$asset->tags[$k] = strtolower($v);
+				}
 			}
 
-			if(count(array_intersect(explode(',', strtolower($tags)), $asset->tags)) > 0)
+			if(isset($asset->tags))
 			{
-				$filtered[] = $asset;
+				if(count(array_intersect($array, $asset->tags)) > 0)
+				{
+					$filtered[] = $asset;
+				}
 			}
 		}
 
@@ -1409,29 +1416,29 @@ class BCMAPI
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function filter($assets, $tags)
 	{
-		return tagsFilter($assets, $tags);
+		return $this->tagsFilter($assets, $tags);
 	}
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function tags($tags, $implode = FALSE)
 	{
-		return convertTags($tags, $implode);
+		return $this->convertTags($tags, $implode);
 	}
 	
 	/**
 	 * Dummy method for backwards compatability
-	 * @todo Deprecate in > 2.0.5
+	 * @todo Deprecate in > 2.1.0
 	 */
 	public function time($ms, $seconds = FALSE)
 	{
-		return convertTime($ms, $seconds);
+		return $this->convertTime($ms, $seconds);
 	}
 
 	/**
@@ -1521,8 +1528,13 @@ class BCMAPIException extends Exception
 
 		if(isset($raw_error))
 		{
+			if(isset($raw_error->error) && isset($raw_error->error->message) && isset($raw_error->error->code))
+			{
+				$raw_error = $raw_error->error;
+			}
+			
 			$error .= "'\n";
-			$error .= isset($raw_error->error) ? '== ' . $raw_error->error . ' (' . $raw_error->code . ') ==' . "\n" : '';
+			$error .= (isset($raw_error->message) && isset($raw_error->code)) ? '== ' . $raw_error->message . ' (' . $raw_error->code . ') ==' . "\n" : '';
 			$error .= isset($raw_error->errors[0]) ? '== ' . $raw_error->errors[0]->error . ' (' . $raw_error->errors[0]->code . ') ==' . "\n" : '';
 		}
 
