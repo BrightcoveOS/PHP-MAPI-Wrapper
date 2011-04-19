@@ -11,7 +11,7 @@
  *	 Matthew Congrove <mcongrove@brightcove.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the ÒSoftwareÓ),
+ * copy of this software and associated documentation files (the ï¿½Softwareï¿½),
  * to deal in the Software without restriction, including without limitation
  * the rights to use, copy, modify, alter, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to
@@ -60,7 +60,7 @@ class BCMAPICache
 		
 		if(strtolower($type) == 'file')
 		{
-			$type == 'file';
+			$type = 'file';
 		} else if(strtolower($type) == 'memcache' || strtolower($type) == 'memcached') {
 			$type = 'memcached';
 			
@@ -88,7 +88,7 @@ class BCMAPICache
 	 */
 	public function get($key)
 	{
-		if(self::$type == 'flat')
+		if(self::$type == 'file')
 		{
 			$file = self::$location . md5($key) . self::$extension;
 	
