@@ -1353,7 +1353,8 @@ class BCMAPI
 			curl_setopt($curl, CURLOPT_POST, 1);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
 		}
-
+		// Add curl timeout
+		curl_setopt($curl, CURLOPT_TIMEOUT, 15); 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		$response = curl_exec($curl);
 
