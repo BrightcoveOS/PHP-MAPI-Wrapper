@@ -414,6 +414,11 @@ class BCMAPI
 			}
 		}
 
+		if (isset($params['sort_by']) && isset($params['sort_order'])) {
+			$params['sort_by'] .= (':'.$params['sort_order']);
+			unset($params['sort_order']);
+		}
+
 		$url = str_replace(array('%2526', '%253D'), array('&', '='), $this->appendParams('search_' . $type . 's', $params));
 		
 		$this->timeout_current = 0;
