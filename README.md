@@ -36,12 +36,12 @@ Then, after instantiating the core class, you can instantiate the caching
 extension.
 
 	// Using flat files
-	$bc = new BCMAPI(API_READ_TOKEN, API_WRITE_TOKEN);
-	$bc_cache = new BCMAPICache('file', 600, '/var/www/myWebSite/cache/', '.cache');
+	$bc = new BC_MAPI(API_READ_TOKEN, API_WRITE_TOKEN);
+	$bc_cache = new BC_MAPICache('file', 600, '/var/www/myWebSite/cache/', '.cache');
 
 	// Using Memcached
-	$bc = new BCMAPI(API_READ_TOKEN, API_WRITE_TOKEN);
-	$bc_cache = new BCMAPICache('memcached', 600, 'localhost', NULL, 11211);
+	$bc = new BC_MAPI(API_READ_TOKEN, API_WRITE_TOKEN);
+	$bc_cache = new BC_MAPICache('memcached', 600, 'localhost', NULL, 11211);
 
 The parameters for the constructor are:
 

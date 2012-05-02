@@ -41,7 +41,7 @@
  * SUPPORT OF ANY KIND IS PROVIDED FOR THE SOFTWARE.
  */
 
-class BCMAPI
+class BC_MAPI
 {
 	const ERROR_API_ERROR = 1;
 	const ERROR_DEPRECATED = 99;
@@ -82,7 +82,7 @@ class BCMAPI
 	);
 
 	/**
-	 * The constructor for the BCMAPI class.
+	 * The constructor for the BC_MAPI class.
 	 * @access Public
 	 * @since 0.1.0
 	 * @param string [$token_read] The read API token for the Brightcove account
@@ -96,7 +96,7 @@ class BCMAPI
 	}
 
 	/**
-	 * Sets a property of the BCMAPI class.
+	 * Sets a property of the BC_MAPI class.
 	 * @access Public
 	 * @since 1.0.0
 	 * @param string [$key] The property to set
@@ -109,12 +109,12 @@ class BCMAPI
 		{
 			$this->$key = $value;
 		} else {
-			throw new BCMAPIInvalidProperty($this, self::ERROR_INVALID_PROPERTY);
+			throw new BC_MAPIInvalidProperty($this, self::ERROR_INVALID_PROPERTY);
 		}
 	}
 
 	/**
-	 * Retrieves a property of the BCMAPI class.
+	 * Retrieves a property of the BC_MAPI class.
 	 * @access Public
 	 * @since 1.0.0
 	 * @param string [$key] The property to retrieve
@@ -126,7 +126,7 @@ class BCMAPI
 		{
 			return $this->$key;
 		} else {
-			throw new BCMAPIInvalidProperty($this, self::ERROR_INVALID_PROPERTY);
+			throw new BC_MAPIInvalidProperty($this, self::ERROR_INVALID_PROPERTY);
 		}
 	}
 
@@ -248,7 +248,7 @@ class BCMAPI
 				$get_item_count = TRUE;
 				break;
 			default:
-				throw new BCMAPIInvalidMethod($this, self::ERROR_INVALID_METHOD);
+				throw new BC_MAPIInvalidMethod($this, self::ERROR_INVALID_METHOD);
 				break;
 		}
 
@@ -372,7 +372,7 @@ class BCMAPI
 	{
 		if(!isset($terms) || !is_array($terms))
 		{
-			throw new BCMAPISearchTermsNotProvided($this, self::ERROR_SEARCH_TERMS_NOT_PROVIDED);
+			throw new BC_MAPISearchTermsNotProvided($this, self::ERROR_SEARCH_TERMS_NOT_PROVIDED);
 		}
 
 		if(!isset($params))
@@ -451,21 +451,21 @@ class BCMAPI
 					{
 						unset($options['encode_to']);
 						
-						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
+						throw new BC_MAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 
 					if(isset($options['create_multiple_renditions']))
 					{
 						$options['create_multiple_renditions'] = 'FALSE';
 						
-						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
+						throw new BC_MAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 
 					if(isset($options['preserve_source_rendition']))
 					{
 						unset($options['preserve_source_rendition']);
 						
-						throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
+						throw new BC_MAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 					}
 				}
 
@@ -473,11 +473,11 @@ class BCMAPI
 				{
 					unset($options['H264NoProcessing']);
 					
-					throw new BCMAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
+					throw new BC_MAPIInvalidUploadOption($this, self::ERROR_INVALID_UPLOAD_OPTION);
 				}
 			}
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		$request = array();
@@ -557,7 +557,7 @@ class BCMAPI
 			$params['playlist'] = $media;
 			$post['method'] = 'create_playlist';
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		$params['token'] = $this->token_write;
@@ -592,7 +592,7 @@ class BCMAPI
 		{
 			$post['method'] = 'add_image';
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		foreach($meta as $key => $value)
@@ -606,7 +606,7 @@ class BCMAPI
 		} elseif(isset($ref_id)) {
 			$params[strtolower($type) . '_reference_id'] = $ref_id;
 		} else {
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		if($resize)
@@ -661,7 +661,7 @@ class BCMAPI
 		} elseif(isset($ref_id)) {
 			$params['video_reference_id'] = $ref_id;
 		} else {
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		$params['token'] = $this->token_write;
@@ -709,7 +709,7 @@ class BCMAPI
 		} elseif(isset($ref_id)) {
 			$params['video_reference_id'] = $ref_id;
 		} else {
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		$post['method'] = strtolower('remove_logo_overlay');
@@ -786,7 +786,7 @@ class BCMAPI
 		} elseif(isset($ref_id)) {
 			$params['reference_id'] = $ref_id;
 		} else {
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		$post['method'] = strtolower('delete_' . $type);
@@ -810,7 +810,7 @@ class BCMAPI
 	{
 		if(!isset($id) && !isset($ref_id))
 		{
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		$request = array();
@@ -833,7 +833,7 @@ class BCMAPI
 		{
 			$post['method'] = 'get_upload_status';
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		$post['params'] = $params;
@@ -858,7 +858,7 @@ class BCMAPI
 	{
 		if(!isset($id))
 		{
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		if(!is_array($account_ids))
@@ -892,7 +892,7 @@ class BCMAPI
 			$params['video_id'] = $id;
 			$post['method'] = 'share_video';
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		$post['params'] = $params;
@@ -914,7 +914,7 @@ class BCMAPI
 	{
 		if(!isset($playlist_id))
 		{
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		if(!is_array($video_ids))
@@ -933,7 +933,7 @@ class BCMAPI
 
 		if(!isset($playlist))
 		{
-			throw new BCMAPIDtoDoesNotExist($this, self::ERROR_DTO_DOES_NOT_EXIST);
+			throw new BC_MAPIDtoDoesNotExist($this, self::ERROR_DTO_DOES_NOT_EXIST);
 		}
 
 		foreach($playlist->videoIds as $video)
@@ -964,7 +964,7 @@ class BCMAPI
 	{
 		if(!isset($playlist_id))
 		{
-			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+			throw new BC_MAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
 		if(!is_array($video_ids))
@@ -981,7 +981,7 @@ class BCMAPI
 
 		if(!isset($playlist))
 		{
-			throw new BCMAPIDtoDoesNotExist($this, self::ERROR_DTO_DOES_NOT_EXIST);
+			throw new BC_MAPIDtoDoesNotExist($this, self::ERROR_DTO_DOES_NOT_EXIST);
 		}
 
 		foreach($video_ids as $video)
@@ -1187,7 +1187,7 @@ class BCMAPI
 		} elseif(strtolower($type) == 'write') {
 			$url .= $this->url_write;
 		} else {
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		}
 
 		return $url;
@@ -1231,9 +1231,9 @@ class BCMAPI
 	 */
 	protected function getData($url)
 	{
-		if(class_exists('BCMAPICache'))
+		if(class_exists('BC_MAPICache'))
 		{
-			$cache = BCMAPICache::get($url);
+			$cache = BC_MAPICache::get($url);
 
 			if($cache !== FALSE)
 			{
@@ -1258,7 +1258,7 @@ class BCMAPI
 
 		if(!isset($this->token_read))
 		{
-			throw new BCMAPITokenError($this, self::ERROR_READ_TOKEN_NOT_PROVIDED);
+			throw new BC_MAPITokenError($this, self::ERROR_READ_TOKEN_NOT_PROVIDED);
 		}
 
 		$response = $this->curlRequest($url, TRUE);
@@ -1283,12 +1283,12 @@ class BCMAPI
 
 					return $this->getData($url);
 				} else {
-					throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object);
+					throw new BC_MAPIApiError($this, self::ERROR_API_ERROR, $response_object);
 				}
 			} else {
-				if(class_exists('BCMAPICache'))
+				if(class_exists('BC_MAPICache'))
 				{
-					$cache = BCMAPICache::set($url, $response_object);
+					$cache = BC_MAPICache::set($url, $response_object);
 				}
 
 				if(isset($response_object->items))
@@ -1305,7 +1305,7 @@ class BCMAPI
 				return $data;
 			}
 		} else {
-			throw new BCMAPIApiError($this, self::ERROR_API_ERROR);
+			throw new BC_MAPIApiError($this, self::ERROR_API_ERROR);
 		}
 	}
 
@@ -1321,7 +1321,7 @@ class BCMAPI
 	{
 		if(!isset($this->token_write))
 		{
-			throw new BCMAPITokenError($this, self::ERROR_WRITE_TOKEN_NOT_PROVIDED);
+			throw new BC_MAPITokenError($this, self::ERROR_WRITE_TOKEN_NOT_PROVIDED);
 		}
 
 		$response = $this->curlRequest($request, FALSE);
@@ -1332,7 +1332,7 @@ class BCMAPI
 
 			if(!isset($response_object->result))
 			{
-				throw new BCMAPIApiError($this, self::ERROR_API_ERROR, $response_object);
+				throw new BC_MAPIApiError($this, self::ERROR_API_ERROR, $response_object);
 			}
 			
 			return $response_object;
@@ -1379,9 +1379,9 @@ class BCMAPI
 		{
 			if($get_request)
 			{
-				throw new BCMAPITransactionError($this, self::ERROR_READ_API_TRANSACTION_FAILED, $curl_error);
+				throw new BC_MAPITransactionError($this, self::ERROR_READ_API_TRANSACTION_FAILED, $curl_error);
 			} else {
-				throw new BCMAPITransactionError($this, self::ERROR_WRITE_API_TRANSACTION_FAILED, $curl_error);
+				throw new BC_MAPITransactionError($this, self::ERROR_WRITE_API_TRANSACTION_FAILED, $curl_error);
 			}
 		}
 
@@ -1415,7 +1415,7 @@ class BCMAPI
 	{
 		if(!in_array(strtolower($type), $this->valid_types))
 		{
-			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+			throw new BC_MAPIInvalidType($this, self::ERROR_INVALID_TYPE);
 		} else {
 			return TRUE;
 		}
@@ -1457,7 +1457,7 @@ class BCMAPI
 	 */
 	public function embed($a = NULL, $b = NULL, $c = NULL, $d = NULL, $e = NULL)
 	{
-		throw new BCMAPIDeprecated($this, self::ERROR_DEPRECATED);
+		throw new BC_MAPIDeprecated($this, self::ERROR_DEPRECATED);
 
 		return FALSE;
 	}
@@ -1519,17 +1519,17 @@ class BCMAPI
 	}
 }
 
-class BCMAPIException extends Exception
+class BC_MAPIException extends Exception
 {
 	/**
-	 * The constructor for the BCMAPIException class
+	 * The constructor for the BC_MAPIException class
 	 * @access Public
 	 * @since 1.0.0
-	 * @param object [$obj] A pointer to the BCMAPI class
+	 * @param object [$obj] A pointer to the BC_MAPI class
 	 * @param int [$error_code] The error code
 	 * @param string [$raw_error] Any additional error information
 	 */
-	public function __construct(BCMAPI $obj, $error_code, $raw_error = NULL)
+	public function __construct(BC_MAPI $obj, $error_code, $raw_error = NULL)
 	{
 		$error = $obj->getErrorAsString($error_code);
 
@@ -1549,17 +1549,17 @@ class BCMAPIException extends Exception
 	}
 }
 
-class BCMAPIApiError extends BCMAPIException{}
-class BCMAPIDeprecated extends BCMAPIException{}
-class BCMAPIDtoDoesNotExist extends BCMAPIException{}
-class BCMAPIIdNotProvided extends BCMAPIException{}
-class BCMAPIInvalidFileType extends BCMAPIException{}
-class BCMAPIInvalidMethod extends BCMAPIException{}
-class BCMAPIInvalidProperty extends BCMAPIException{}
-class BCMAPIInvalidType extends BCMAPIException{}
-class BCMAPIInvalidUploadOption extends BCMAPIException{}
-class BCMAPISearchTermsNotProvided extends BCMAPIException{}
-class BCMAPITokenError extends BCMAPIException{}
-class BCMAPITransactionError extends BCMAPIException{}
+class BC_MAPIApiError extends BC_MAPIException{}
+class BC_MAPIDeprecated extends BC_MAPIException{}
+class BC_MAPIDtoDoesNotExist extends BC_MAPIException{}
+class BC_MAPIIdNotProvided extends BC_MAPIException{}
+class BC_MAPIInvalidFileType extends BC_MAPIException{}
+class BC_MAPIInvalidMethod extends BC_MAPIException{}
+class BC_MAPIInvalidProperty extends BC_MAPIException{}
+class BC_MAPIInvalidType extends BC_MAPIException{}
+class BC_MAPIInvalidUploadOption extends BC_MAPIException{}
+class BC_MAPISearchTermsNotProvided extends BC_MAPIException{}
+class BC_MAPITokenError extends BC_MAPIException{}
+class BC_MAPITransactionError extends BC_MAPIException{}
 
 ?>
