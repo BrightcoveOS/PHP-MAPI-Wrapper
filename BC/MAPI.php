@@ -1231,7 +1231,7 @@ class BC_MAPI
 	 */
 	protected function getData($url)
 	{
-		if(class_exists('BC_MAPICache'))
+		if(class_exists('BC_MAPICache',false))
 		{
 			$cache = BC_MAPICache::get($url);
 
@@ -1286,7 +1286,7 @@ class BC_MAPI
 					throw new BC_MAPIApiError($this, self::ERROR_API_ERROR, $response_object);
 				}
 			} else {
-				if(class_exists('BC_MAPICache'))
+				if(class_exists('BC_MAPICache',false))
 				{
 					$cache = BC_MAPICache::set($url, $response_object);
 				}
