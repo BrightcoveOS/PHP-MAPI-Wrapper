@@ -51,6 +51,8 @@ The parameters for the constructor are:
 *	[string] The file extension for cache items (file only)
 *	[int] The port to use (Memcached only)
 
+* * *
+
 Examples
 ========
 
@@ -370,6 +372,7 @@ This example shows how to remove all videos that don't contain any of the listed
 	// Remove all videos without specified tags
 	$videos = $bc->filter($videos, 'published=true,include=true');
 
+* * *
 
 Methods
 =======
@@ -963,7 +966,8 @@ The constructor for the BCMAPICache class.
 - **type** *Public - The type of caching method to use, either 'file' or 'memcached'*
 
 	Type:		String
-				
+
+* * *				
 
 Errors
 ======
