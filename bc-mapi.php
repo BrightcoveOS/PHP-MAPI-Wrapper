@@ -67,6 +67,7 @@ class BCMAPI
 	private $media_delivery = 'default';
 	private $secure = FALSE;
 	private $show_notices = FALSE;
+	private $timeout = 15;
 	private $timeout_attempts = 100;
 	private $timeout_current = 0;
 	private $timeout_delay = 1;
@@ -1358,7 +1359,8 @@ class BCMAPI
 			curl_setopt($curl, CURLOPT_POST, 1);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
 		}
-
+		// Add curl timeout
+		curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout); 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		$response = curl_exec($curl);
 
