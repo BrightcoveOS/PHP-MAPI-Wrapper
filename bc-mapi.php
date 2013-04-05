@@ -66,6 +66,7 @@ class BCMAPI
 	private $bit32 = FALSE;
 	private $media_delivery = 'default';
 	private $secure = FALSE;
+	private $secure_cert = "brightcove.cer";
 	private $show_notices = FALSE;
 	private $timeout_attempts = 100;
 	private $timeout_current = 0;
@@ -1349,7 +1350,13 @@ class BCMAPI
 	private function curlRequest($request, $get_request = FALSE)
 	{
 		$curl = curl_init();
-
+		
+		if ($this->secure) {
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+			curl_setopt($curl, CURLOPT_CAINFO, getcwd() . '/' . $this->secure_cert );
+		}
+		
 		if($get_request)
 		{
 			curl_setopt($curl, CURLOPT_URL, $request);
