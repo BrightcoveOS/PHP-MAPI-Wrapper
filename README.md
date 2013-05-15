@@ -160,7 +160,8 @@ This example shows how to define additional API call parameters using a key-valu
 Find Query - True Find All
 --------------------------
 Brightcove limits the "find_all_videos" call to 100 results, requiring pagination and numerous API calls. This example shows how to use the findAll() method to do this automatically.
-**WARNING: Use very carefully** *
+**WARNING: Use very carefully**
+
 	// Define our parameters
 	$params = array(
 		'video_fields' => 'id,name'
@@ -241,6 +242,34 @@ This example details how to upload a image to a Brightcove account. This code is
 	
 	// Upload the image, assign to a video, and save the image asset ID
 	$id = $bc->createImage('video', $file, $metaData, 123456789);
+	
+Create - Captions - Upload file
+-------------------------------
+This example details how to upload a captions file to a Video Cloud account. This code is handling data that was passed from a form. As with the image example, the temp file will be renamed.
+	
+	// Move the file out of 'tmp', or rename
+	rename($_FILES['bcCaptions']['tmp_name'], '/tmp/' . $_FILES['bcCaptions']['name']);
+	$file = '/tmp/' . $_FILES['bcCaptions']['name'];
+	
+	// Upload the captions, assign to a video
+	$id = $bc->createCaptions('video', NULL, $file, NULL, NULL, 123456789);
+	
+	// Optionally add file size and / or checksum to ensure the file uploaded correctly
+	$maxsize = filesize($file);
+	$checksum = md5_file($file);
+	
+	// Upload using maxsize and checksum, to a video by reference ID
+	$id = $bc->createCaptions('video', NULL, $file, $maxsize, $checksum, NULL, "my_video");
+
+Create - Captions - With URL
+----------------------------
+This example details how to add captions to a video in Video Cloud using a remotely hosted captions file.
+
+	// Captions URL
+	$captionsUrl = "http://example.com/captions.xml"; 
+	
+	// Add captions to video ID 123456789
+	$id = $bc->createCaptions('video', $captionsUrl, NULL, NULL, NULL, 123456789);
 
 
 Create - Playlist
@@ -282,6 +311,15 @@ This example shows how to delete a video, but the same method will work for a pl
 
 	// Delete a 'video' by ID, and cascade the deletion
 	$bc->delete('video', 123456789, NULL, TRUE);
+	
+Delete - Captions
+-----------------
+This example shows how to delete captions from a video.
+
+	// Delete captions by ID
+	$bc->deleteCaptions(123456789);
+	// Delete captions by reference ID
+	$bc->deleteCaptions(NULL, "my_video");
 
 
 Status - Video Upload
