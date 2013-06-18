@@ -36,7 +36,7 @@
  * SUPPORT OF ANY KIND IS PROVIDED FOR THE SOFTWARE.
  */
 
-class BCMAPICache
+class BC_MAPICache
 {
 	public static $extension = NULL;
 	public static $location = NULL;
@@ -46,7 +46,7 @@ class BCMAPICache
 	public static $type = NULL;
 
 	/**
-	 * The constructor for the BCMAPICache class.
+	 * The constructor for the BC_MAPICache class.
 	 * @access Public
 	 * @since 1.0.0
 	 * @param string [$type] The type of caching method to use, either 'file' or 'memcached'
