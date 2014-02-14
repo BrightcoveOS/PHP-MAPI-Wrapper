@@ -149,8 +149,8 @@ This example shows how to define additional API call parameters using a key-valu
 
 	// Define our parameters
 	$params = array(
-		'id' => 123456789,
-		'video_fields' => 'video_id,name,shortDescription'
+		'video_id' => 123456789,
+		'video_fields' => 'id,name,shortDescription'
 	);
 	
 	// Make our API call
