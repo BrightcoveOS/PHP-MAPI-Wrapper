@@ -624,7 +624,7 @@ class BCMAPI
 
 		if(isset($file))
 		{
-			$request['file'] = '@' . $file;
+			$request['file'] = is_string($file) ? '@' . $file : $file;
 		}
 
 		return $this->putData($request)->result;
