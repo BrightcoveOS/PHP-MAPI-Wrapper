@@ -410,6 +410,10 @@ The constructor for the BCMAPI class.
 
 	Type:		Integer
 			
+- **proxy** *Public - HTTP Proxy to use for connecting to Brightcove services.*
+
+	Type:		String
+
 - **secure** *Private - Whether BCMAPI is operating over HTTPS*
 
 	Type:		Boolean

@@ -65,6 +65,7 @@ class BCMAPI
 	private $api_calls = 0;
 	private $bit32 = FALSE;
 	private $media_delivery = 'default';
+	private $proxy = NULL;
 	private $secure = FALSE;
 	private $show_notices = FALSE;
 	private $timeout_attempts = 100;
@@ -1357,6 +1358,10 @@ class BCMAPI
 			curl_setopt($curl, CURLOPT_URL, $this->getUrl('write'));
 			curl_setopt($curl, CURLOPT_POST, 1);
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+		}
+		if(!is_null($this->proxy))
+		{
+			curl_setopt($curl, CURLOPT_PROXY, $this->proxy);
 		}
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
