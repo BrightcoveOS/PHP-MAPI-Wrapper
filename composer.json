@@ -1,0 +1,22 @@
+{
+    "name"       : "danielhomer/php-mapi-wrapper",
+    "description": "Brightcove API wrapper written in PHP.",
+    "homepage"   : "https://github.com/danielhomer/PHP-MAPI-Wrapper",
+    "license"    : "GPLv2",
+    "authors"    : [
+        {
+            "name"    : "Daniel Homer",
+            "homepage": "http://danielhomer.me"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/danielhomer/PHP-MAPI-Wrapper"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "danielhomer/php-mapi-wrapper" : "*"
+    }
+}
