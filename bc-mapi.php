@@ -631,6 +631,71 @@ class BCMAPI
 	}
 
 	/**
+	 * Adds captions by remote URL or by upload to Brightcove.
+	 * @access Public
+	 * @since 2.0.5
+	 * @param string [$type] The type of object to upload image for
+	 * @param string [$url] The URL to the file
+	 * @param string [$file] The location of the temporary file
+	 * @param int [$maxsize] The maximum size of the file
+	 * @param string [$checksum] The MD5 checksum of the file
+	 * @param int [$id] The ID of the video to assign the captions to
+	 * @param string [$ref_id] The reference ID of the video to assign the captions to
+	 * @return mixed The captions asset
+	 */
+	public function createCaptions($type = 'video', $url = NULL, $file = NULL, $maxsize = NULL, $checksum = NULL, $id = NULL, $ref_id = NULL)
+	{
+		$request = array();
+		$post = array();
+		$params = array();
+		$media = array();
+
+		if(strtolower($type) == 'video')
+		{
+			$post['method'] = 'add_captioning';
+		} else {
+			throw new BCMAPIInvalidType($this, self::ERROR_INVALID_TYPE);
+		}
+
+		if(isset($id))
+		{
+			$params[strtolower($type) . '_id'] = $id;
+		} elseif(isset($ref_id)) {
+			$params[strtolower($type) . '_reference_id'] = $ref_id;
+		} else {
+			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+		}
+
+		if(isset($url)) {
+			$media['url'] = $url;
+			$media['isRemote'] = TRUE;
+		} elseif (isset($file)) {
+			$media['filename'] = $file;
+			$media['displayName'] = basename($file);
+			if(isset($maxsize)) {
+				$params['maxsize'] = $maxsize;
+			}
+			if(isset($checksum)) {
+				$params['checksum'] = $checksum;
+			}
+		}
+		
+		$params['token'] = $this->token_write;
+		$params['caption_source'] = $media;
+
+		$post['params'] = $params;
+
+		$request['json'] = json_encode($post) . "\n";
+
+		if(isset($file))
+		{
+			$request['file'] = '@' . $file;
+		}
+
+		return $this->putData($request)->result;
+	}
+
+	/**
 	 * Uploads a logo overlay file to Brightcove.
 	 * @access Public
 	 * @since 1.1.0
@@ -712,6 +777,38 @@ class BCMAPI
 		}
 
 		$post['method'] = strtolower('remove_logo_overlay');
+		$post['params'] = $params;
+
+		$request['json'] = json_encode($post) . "\n";
+
+		return $this->putData($request, FALSE);
+	}
+
+	/**
+	 * Deletes captions.
+	 * @access Public
+	 * @since 2.0.5
+	 * @param int [$id] The ID of the captions asset
+	 * @param string [$ref_id] The reference ID of the captions asset
+	 */
+	public function deleteCaptions($id = NULL, $ref_id = NULL)
+	{
+		$request = array();
+		$post = array();
+		$params = array();
+
+		$params['token'] = $this->token_write;
+
+		if(isset($id))
+		{
+			$params['video_id'] = $id;
+		} elseif(isset($ref_id)) {
+			$params['video_reference_id'] = $ref_id;
+		} else {
+			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+		}
+
+		$post['method'] = 'delete_captioning';
 		$post['params'] = $params;
 
 		$request['json'] = json_encode($post) . "\n";
@@ -1317,7 +1414,7 @@ class BCMAPI
 	 * @return object An object containing all API return data
 	 */
 	private function putData($request, $return_json = TRUE)
-	{
+	{	
 		if(!isset($this->token_write))
 		{
 			throw new BCMAPITokenError($this, self::ERROR_WRITE_TOKEN_NOT_PROVIDED);
