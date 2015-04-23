@@ -808,7 +808,7 @@ class BCMAPI
 			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
 		}
 
-		$post['method'] = strtolower('delete_captions');
+		$post['method'] = 'delete_captioning';
 		$post['params'] = $params;
 
 		$request['json'] = json_encode($post) . "\n";
