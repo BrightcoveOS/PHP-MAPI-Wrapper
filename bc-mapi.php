@@ -573,7 +573,7 @@ class BCMAPI
 	 * @access Public
 	 * @since 0.3.4
 	 * @param string [$type] The type of object to upload image for
-	 * @param string [$file] The location of the temporary file
+	 * @param mixed [$file] The location of the temporary file or a CURLFile object
 	 * @param array [$meta] The image information
 	 * @param int [$id] The ID of the media asset to assign the image to
 	 * @param string [$ref_id] The reference ID of the media asset to assign the image to
@@ -624,7 +624,7 @@ class BCMAPI
 
 		if(isset($file))
 		{
-			$request['file'] = '@' . $file;
+			$request['file'] = is_string($file) ? '@' . $file : $file;
 		}
 
 		return $this->putData($request)->result;
