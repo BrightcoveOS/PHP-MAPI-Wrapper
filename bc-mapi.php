@@ -62,20 +62,20 @@ class BCMAPI
 	public $page_size = NULL;
 	public $total_count = NULL;
 
-	private $api_calls = 0;
-	private $bit32 = FALSE;
-	private $media_delivery = 'default';
-	private $secure = FALSE;
-	private $show_notices = FALSE;
-	private $timeout_attempts = 100;
-	private $timeout_current = 0;
-	private $timeout_delay = 1;
-	private $timeout_retry = FALSE;
-	private $token_read = NULL;
-	private $token_write = NULL;
-	private $url_read = 'api.brightcove.com/services/library?';
-	private $url_write = 'api.brightcove.com/services/post';
-	private $valid_types = array(
+	protected $api_calls = 0;
+	protected $bit32 = FALSE;
+	protected $media_delivery = 'default';
+	protected $secure = FALSE;
+	protected $show_notices = FALSE;
+	protected $timeout_attempts = 100;
+	protected $timeout_current = 0;
+	protected $timeout_delay = 1;
+	protected $timeout_retry = FALSE;
+	protected $token_read = NULL;
+	protected $token_write = NULL;
+	protected $url_read = 'api.brightcove.com/services/library?';
+	protected $url_write = 'api.brightcove.com/services/post';
+	protected $valid_types = array(
 		'playlist',
 		'video'
 	);
@@ -1171,7 +1171,7 @@ class BCMAPI
 	 * @param string [$type] The type of URL to retrieve, read or write
 	 * @return string The appropriate API URL
 	 */
-	private function getUrl($type = 'read')
+	protected function getUrl($type = 'read')
 	{
 		if($this->secure)
 		{
@@ -1201,7 +1201,7 @@ class BCMAPI
 	 * @param string [$default] The default API parameter if only 1 provided
 	 * @return string The complete API request URL
 	 */
-	private function appendParams($method, $params = NULL, $default = NULL)
+	protected function appendParams($method, $params = NULL, $default = NULL)
 	{
 		$url = $this->getUrl('read') . 'token=' . $this->token_read . '&command=' . $method;
 
@@ -1228,7 +1228,7 @@ class BCMAPI
 	 * @param string [$url] The complete API request URL
 	 * @return object An object containing all API return data
 	 */
-	private function getData($url)
+	protected function getData($url)
 	{
 		if(class_exists('BCMAPICache'))
 		{
@@ -1316,7 +1316,7 @@ class BCMAPI
 	 * @param bool [$return_json] Whether we should return any data or not
 	 * @return object An object containing all API return data
 	 */
-	private function putData($request, $return_json = TRUE)
+	protected function putData($request, $return_json = TRUE)
 	{
 		if(!isset($this->token_write))
 		{
@@ -1346,7 +1346,7 @@ class BCMAPI
 	 * @param boolean [$get_request] If false, send POST params
 	 * @return void
 	 */
-	private function curlRequest($request, $get_request = FALSE)
+	protected function curlRequest($request, $get_request = FALSE)
 	{
 		$curl = curl_init();
 
@@ -1393,7 +1393,7 @@ class BCMAPI
 	 * @param string [$response] The response from a cURL request
 	 * @return string The cleansed string if using a 32-bit machine.
 	 */
-	private function bit32Clean($response)
+	protected function bit32Clean($response)
 	{
 		if($this->bit32)
 		{
@@ -1409,7 +1409,7 @@ class BCMAPI
 	 * @since 1.0.0
 	 * @param string [$type] The type
 	 */
-	private function validType($type)
+	protected function validType($type)
 	{
 		if(!in_array(strtolower($type), $this->valid_types))
 		{
