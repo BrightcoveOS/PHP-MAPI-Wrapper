@@ -549,7 +549,7 @@ class BCMAPI
 			{
 				foreach($media['videoIds'] as $key => $value)
 				{
-					$media['videoIds'][$key] = (int)$value;
+					$media['videoIds'][$key] = $value;
 				}
 			}
 
