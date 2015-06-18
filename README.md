@@ -1,3 +1,5 @@
+This library uses Brightcove’s legacy Media API (MAPI). A new library has been released which uses Brightcove’s new CMSAPI, DIAPI, and PMAPI: https://github.com/brightcove/PHP-API-Wrapper
+
 About
 =====
 
