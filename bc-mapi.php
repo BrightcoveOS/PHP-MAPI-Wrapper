@@ -636,6 +636,42 @@ class BCMAPI
 		return $this->putData($request)->result;
 	}
 
+        /**
+         * Uploads/sets a Closed Caption object to Brightcove.
+         * @access Public
+         * @param array [$meta] the metadata for the CaptionSource you want to create. 
+         * @param int [$id] The ID of the video asset to assign the captions to
+         * @param string [$ref_id] The reference ID of the video asset to assign the caption to
+         * TODO:@param string [$file] The location of the file to upload optional
+         * TODO:@param int [$maxsize] The maximum size of the filea
+         * TODO:@param string [$file_checksum] - optional
+         */
+        public function createCaptions($meta, $id = NULL, $ref_id = NULL, $file = NULL)
+        {
+                $request = array();
+                $post = array();
+                $params = array();
+                $media = array();
+
+                // the caption source object is "a JSON object of name/value pairs, each of which corresponds to a settable property of the Video object." 
+                $params['caption_source'] = $meta;
+
+                $params['token'] = $this->token_write;
+                if(isset($id)) {
+                  $params['video_id'] = $id;
+                } elseif(isset($ref_id)) {
+                  $params['video_reference_type'] = $ref_id;
+		} else {
+			throw new BCMAPIIdNotProvided($this, self::ERROR_ID_NOT_PROVIDED);
+		}
+
+                $post['method'] = 'add_captioning';
+                $post['params'] = $params;
+                $request['json'] = json_encode($post) . "\n";
+                return $this->putData($request)->result;
+}
+
+
 	/**
 	 * Uploads a logo overlay file to Brightcove.
 	 * @access Public
