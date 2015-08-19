@@ -517,7 +517,13 @@ class BCMAPI
 
 		if(isset($file))
 		{
-			$request['file'] = '@' . $file;
+			// Added for PHP 5.5+ support.
+			if (is_string($file) && function_exists('curl_file_create')) {
+				$file = curl_file_create($file);
+			} else {
+				$file = '@' . $file;
+			}
+			$request['file'] = $file;
 		}
 
 		return (string)$this->putData($request)->result;
