@@ -1,0 +1,18 @@
+{
+    "name": "brightcoveos/php-mapi-wrapper",
+    "description": "This project provides a starting point for integrating the Brightcove Media API into your application. It provides simple ways to interact with the API,  as well as a long list of helper functions",
+    "type": "sdk",
+    "version": "2.0.4",
+    "keywords": [
+        "ovp",
+        "movie",
+        "api",
+        "brightcove"
+    ],
+    "homepage": "http://opensource.brightcove.com/project/PHP-MAPI-Wrapper/",
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    }
+}
