@@ -365,9 +365,10 @@ class BCMAPI
 	 * @param string [$type] The type of objects to retrieve
 	 * @param array [$terms] The terms to use for the search
 	 * @param mixed [$params] A key-value array of API parameters
+	 * @param bool [$unfiltered] Use unfiltered search-method
 	 * @return object An object containing all API return data
 	 */
-	public function search($type = 'video', $terms = NULL, $params = NULL)
+	public function search($type = 'video', $terms = NULL, $params = NULL, $unfiltered = FALSE)
 	{
 		if(!isset($terms) || !is_array($terms))
 		{
@@ -419,8 +420,13 @@ class BCMAPI
 			unset($params['sort_order']);
 		}
 
-		$url = str_replace(array('%2526', '%253D'), array('&', '='), $this->appendParams('search_' . $type . 's', $params));
-		
+		$method = 'search_' . $type . 's';
+		if($unfiltered) {
+			$method .= '_unfiltered';
+		}
+
+		$url = str_replace(array('%2526', '%253D'), array('&', '='), $this->appendParams($method, $params));
+
 		$this->timeout_current = 0;
 
 		return $this->getData($url);
